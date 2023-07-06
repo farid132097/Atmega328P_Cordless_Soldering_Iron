@@ -1,0 +1,642 @@
+   1               		.file	"adc.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	IIR_Butterworth_Init
+  18               	IIR_Butterworth_Init:
+  19               	.LFB2:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LBB2:
+  24               	.LM2:
+  25 0000 1092 0000 		sts IIR+1,__zero_reg__
+  26 0004 1092 0000 		sts (IIR+1)+1,__zero_reg__
+  27 0008 1092 0000 		sts (IIR+1)+2,__zero_reg__
+  28 000c 1092 0000 		sts (IIR+1)+3,__zero_reg__
+  29               	.LM3:
+  30 0010 1092 0000 		sts IIR+5,__zero_reg__
+  31 0014 1092 0000 		sts (IIR+5)+1,__zero_reg__
+  32 0018 1092 0000 		sts (IIR+5)+2,__zero_reg__
+  33 001c 1092 0000 		sts (IIR+5)+3,__zero_reg__
+  34               	.LM4:
+  35 0020 1092 0000 		sts IIR+10,__zero_reg__
+  36 0024 1092 0000 		sts (IIR+10)+1,__zero_reg__
+  37 0028 1092 0000 		sts (IIR+10)+2,__zero_reg__
+  38 002c 1092 0000 		sts (IIR+10)+3,__zero_reg__
+  39               	.LM5:
+  40 0030 1092 0000 		sts IIR+14,__zero_reg__
+  41 0034 1092 0000 		sts (IIR+14)+1,__zero_reg__
+  42 0038 1092 0000 		sts (IIR+14)+2,__zero_reg__
+  43 003c 1092 0000 		sts (IIR+14)+3,__zero_reg__
+  44               	.LM6:
+  45 0040 1092 0000 		sts IIR+19,__zero_reg__
+  46 0044 1092 0000 		sts (IIR+19)+1,__zero_reg__
+  47 0048 1092 0000 		sts (IIR+19)+2,__zero_reg__
+  48 004c 1092 0000 		sts (IIR+19)+3,__zero_reg__
+  49               	.LM7:
+  50 0050 1092 0000 		sts IIR+23,__zero_reg__
+  51 0054 1092 0000 		sts (IIR+23)+1,__zero_reg__
+  52 0058 1092 0000 		sts (IIR+23)+2,__zero_reg__
+  53 005c 1092 0000 		sts (IIR+23)+3,__zero_reg__
+  54               	.LBE2:
+  55               	.LM8:
+  56 0060 80E5      		ldi r24,lo8(80)
+  57 0062 8093 0000 		sts IIR,r24
+  58               	.LM9:
+  59 0066 86E4      		ldi r24,lo8(70)
+  60 0068 8093 0000 		sts IIR+9,r24
+  61               	.LM10:
+  62 006c 8093 0000 		sts IIR+18,r24
+  63               	/* epilogue start */
+  64               	.LM11:
+  65 0070 0895      		ret
+  66               	.LFE2:
+  68               	.global	IIR_Butterworth
+  70               	IIR_Butterworth:
+  71               	.LFB3:
+  72               	.LM12:
+  73               	.LVL0:
+  74 0072 2F92      		push r2
+  75 0074 3F92      		push r3
+  76 0076 4F92      		push r4
+  77 0078 5F92      		push r5
+  78 007a 6F92      		push r6
+  79 007c 7F92      		push r7
+  80 007e 8F92      		push r8
+  81 0080 9F92      		push r9
+  82 0082 AF92      		push r10
+  83 0084 BF92      		push r11
+  84 0086 CF92      		push r12
+  85 0088 DF92      		push r13
+  86 008a EF92      		push r14
+  87 008c FF92      		push r15
+  88 008e 0F93      		push r16
+  89 0090 1F93      		push r17
+  90               	/* prologue: function */
+  91               	/* frame size = 0 */
+  92 0092 1A01      		movw r2,r20
+  93 0094 2B01      		movw r4,r22
+  94               	.LM13:
+  95 0096 90E0      		ldi r25,lo8(0)
+  96 0098 4C01      		movw r8,r24
+  97               	.LVL1:
+  98 009a 33E0      		ldi r19,3
+  99 009c 880C      	1:	lsl r8
+ 100 009e 991C      		rol r9
+ 101 00a0 3A95      		dec r19
+ 102 00a2 01F4      		brne 1b
+ 103 00a4 880E      		add r8,r24
+ 104 00a6 991E      		adc r9,r25
+ 105 00a8 80E0      		ldi r24,lo8(IIR)
+ 106 00aa 90E0      		ldi r25,hi8(IIR)
+ 107 00ac 880E      		add r8,r24
+ 108 00ae 991E      		adc r9,r25
+ 109 00b0 F401      		movw r30,r8
+ 110 00b2 4183      		std Z+1,r20
+ 111 00b4 5283      		std Z+2,r21
+ 112 00b6 6383      		std Z+3,r22
+ 113 00b8 7483      		std Z+4,r23
+ 114               	.LM14:
+ 115 00ba A080      		ld r10,Z
+ 116               	.LM15:
+ 117 00bc 64E6      		ldi r22,lo8(100)
+ 118 00be 70E0      		ldi r23,hi8(100)
+ 119 00c0 6A19      		sub r22,r10
+ 120 00c2 7109      		sbc r23,__zero_reg__
+ 121 00c4 8827      		clr r24
+ 122 00c6 77FD      		sbrc r23,7
+ 123 00c8 8095      		com r24
+ 124 00ca 982F      		mov r25,r24
+ 125 00cc 25E0      		ldi r18,lo8(5)
+ 126 00ce 622E      		mov r6,r18
+ 127 00d0 712C      		mov r7,__zero_reg__
+ 128 00d2 680C      		add r6,r8
+ 129 00d4 791C      		adc r7,r9
+ 130 00d6 2581      		ldd r18,Z+5
+ 131 00d8 3681      		ldd r19,Z+6
+ 132 00da 4781      		ldd r20,Z+7
+ 133 00dc 5085      		ldd r21,Z+8
+ 134 00de 0E94 0000 		call __mulsi3
+ 135 00e2 7B01      		movw r14,r22
+ 136 00e4 8C01      		movw r16,r24
+ 137 00e6 BB24      		clr r11
+ 138 00e8 CC24      		clr r12
+ 139 00ea DD24      		clr r13
+ 140 00ec C201      		movw r24,r4
+ 141 00ee B101      		movw r22,r2
+ 142 00f0 A601      		movw r20,r12
+ 143 00f2 9501      		movw r18,r10
+ 144 00f4 0E94 0000 		call __mulsi3
+ 145 00f8 E60E      		add r14,r22
+ 146 00fa F71E      		adc r15,r23
+ 147 00fc 081F      		adc r16,r24
+ 148 00fe 191F      		adc r17,r25
+ 149 0100 C801      		movw r24,r16
+ 150 0102 B701      		movw r22,r14
+ 151 0104 24E6      		ldi r18,lo8(100)
+ 152 0106 30E0      		ldi r19,hi8(100)
+ 153 0108 40E0      		ldi r20,hlo8(100)
+ 154 010a 50E0      		ldi r21,hhi8(100)
+ 155 010c 0E94 0000 		call __divmodsi4
+ 156 0110 CA01      		movw r24,r20
+ 157               	.LVL2:
+ 158 0112 F401      		movw r30,r8
+ 159 0114 2583      		std Z+5,r18
+ 160 0116 F301      		movw r30,r6
+ 161 0118 3183      		std Z+1,r19
+ 162 011a 4283      		std Z+2,r20
+ 163 011c 9383      		std Z+3,r25
+ 164               	.LM16:
+ 165 011e B901      		movw r22,r18
+ 166               	/* epilogue start */
+ 167 0120 1F91      		pop r17
+ 168 0122 0F91      		pop r16
+ 169 0124 FF90      		pop r15
+ 170 0126 EF90      		pop r14
+ 171 0128 DF90      		pop r13
+ 172 012a CF90      		pop r12
+ 173 012c BF90      		pop r11
+ 174 012e AF90      		pop r10
+ 175 0130 9F90      		pop r9
+ 176 0132 8F90      		pop r8
+ 177 0134 7F90      		pop r7
+ 178 0136 6F90      		pop r6
+ 179 0138 5F90      		pop r5
+ 180 013a 4F90      		pop r4
+ 181 013c 3F90      		pop r3
+ 182 013e 2F90      		pop r2
+ 183               	.LVL3:
+ 184 0140 0895      		ret
+ 185               	.LFE3:
+ 187               	.global	ADC_Init
+ 189               	ADC_Init:
+ 190               	.LFB4:
+ 191               	.LM17:
+ 192               	/* prologue: function */
+ 193               	/* frame size = 0 */
+ 194               	.LM18:
+ 195 0142 80EC      		ldi r24,lo8(-64)
+ 196 0144 8093 7C00 		sts 124,r24
+ 197               	.LM19:
+ 198 0148 EAE7      		ldi r30,lo8(122)
+ 199 014a F0E0      		ldi r31,hi8(122)
+ 200 014c 86E0      		ldi r24,lo8(6)
+ 201 014e 8083      		st Z,r24
+ 202               	.LM20:
+ 203 0150 8081      		ld r24,Z
+ 204 0152 8068      		ori r24,lo8(-128)
+ 205 0154 8083      		st Z,r24
+ 206               	.LM21:
+ 207 0156 0E94 0000 		call IIR_Butterworth_Init
+ 208               	/* epilogue start */
+ 209               	.LM22:
+ 210 015a 0895      		ret
+ 211               	.LFE4:
+ 213               	.global	ADC_Read
+ 215               	ADC_Read:
+ 216               	.LFB5:
+ 217               	.LM23:
+ 218               	.LVL4:
+ 219               	/* prologue: function */
+ 220               	/* frame size = 0 */
+ 221               	.LM24:
+ 222 015c 982F      		mov r25,r24
+ 223               	.LVL5:
+ 224 015e 906C      		ori r25,lo8(-64)
+ 225               	.LM25:
+ 226 0160 8091 7C00 		lds r24,124
+ 227               	.LVL6:
+ 228 0164 8917      		cp r24,r25
+ 229 0166 01F0      		breq .L8
+ 230 0168 9093 7C00 		sts 124,r25
+ 231               	.L8:
+ 232               	.LM26:
+ 233 016c 8091 7A00 		lds r24,122
+ 234 0170 8064      		ori r24,lo8(64)
+ 235 0172 8093 7A00 		sts 122,r24
+ 236               	.L9:
+ 237               	.LM27:
+ 238 0176 8091 7A00 		lds r24,122
+ 239 017a 84FF      		sbrs r24,4
+ 240 017c 00C0      		rjmp .L9
+ 241               	.LM28:
+ 242 017e 8091 7A00 		lds r24,122
+ 243 0182 8061      		ori r24,lo8(16)
+ 244 0184 8093 7A00 		sts 122,r24
+ 245               	.LM29:
+ 246 0188 2091 7800 		lds r18,120
+ 247 018c 3091 7900 		lds r19,(120)+1
+ 248               	.LM30:
+ 249 0190 C901      		movw r24,r18
+ 250               	/* epilogue start */
+ 251 0192 0895      		ret
+ 252               	.LFE5:
+ 254               	.global	ADC_Read_Temperature
+ 256               	ADC_Read_Temperature:
+ 257               	.LFB6:
+ 258               	.LM31:
+ 259               	.LVL7:
+ 260 0194 DF92      		push r13
+ 261 0196 EF92      		push r14
+ 262 0198 FF92      		push r15
+ 263 019a 0F93      		push r16
+ 264 019c 1F93      		push r17
+ 265 019e CF93      		push r28
+ 266 01a0 DF93      		push r29
+ 267               	/* prologue: function */
+ 268               	/* frame size = 0 */
+ 269 01a2 D82E      		mov r13,r24
+ 270               	.LM32:
+ 271 01a4 10E0      		ldi r17,lo8(0)
+ 272               	.LVL8:
+ 273               	.L13:
+ 274               	.LBB3:
+ 275               	.LBB4:
+ 276               	.LM33:
+ 277 01a6 80E0      		ldi r24,lo8(0)
+ 278 01a8 0E94 0000 		call ADC_Read
+ 279               	.LBE4:
+ 280               	.LM34:
+ 281 01ac 1F5F      		subi r17,lo8(-(1))
+ 282 01ae 1430      		cpi r17,lo8(4)
+ 283 01b0 01F4      		brne .L13
+ 284 01b2 EE24      		clr r14
+ 285 01b4 FF24      		clr r15
+ 286 01b6 8701      		movw r16,r14
+ 287               	.LVL9:
+ 288 01b8 C0E0      		ldi r28,lo8(0)
+ 289 01ba D0E0      		ldi r29,hi8(0)
+ 290               	.LVL10:
+ 291               	.L14:
+ 292               	.LBE3:
+ 293               	.LBB5:
+ 294               	.LM35:
+ 295 01bc 80E0      		ldi r24,lo8(0)
+ 296 01be 0E94 0000 		call ADC_Read
+ 297 01c2 A0E0      		ldi r26,lo8(0)
+ 298 01c4 B0E0      		ldi r27,hi8(0)
+ 299 01c6 E80E      		add r14,r24
+ 300 01c8 F91E      		adc r15,r25
+ 301 01ca 0A1F      		adc r16,r26
+ 302 01cc 1B1F      		adc r17,r27
+ 303               	.LM36:
+ 304 01ce 2196      		adiw r28,1
+ 305 01d0 C038      		cpi r28,128
+ 306 01d2 D105      		cpc r29,__zero_reg__
+ 307 01d4 01F4      		brne .L14
+ 308               	.LBE5:
+ 309               	.LM37:
+ 310 01d6 47E0      		ldi r20,7
+ 311 01d8 1695      	1:	lsr r17
+ 312 01da 0795      		ror r16
+ 313 01dc F794      		ror r15
+ 314 01de E794      		ror r14
+ 315 01e0 4A95      		dec r20
+ 316 01e2 01F4      		brne 1b
+ 317               	.LM38:
+ 318 01e4 2D2D      		mov r18,r13
+ 319 01e6 30E0      		ldi r19,lo8(0)
+ 320               	.LVL11:
+ 321 01e8 40E0      		ldi r20,lo8(0)
+ 322 01ea 50E0      		ldi r21,hi8(0)
+ 323               	.LVL12:
+ 324 01ec C801      		movw r24,r16
+ 325 01ee B701      		movw r22,r14
+ 326 01f0 0E94 0000 		call __mulsi3
+ 327               	.LM39:
+ 328 01f4 24E6      		ldi r18,lo8(100)
+ 329 01f6 30E0      		ldi r19,hi8(100)
+ 330 01f8 40E0      		ldi r20,hlo8(100)
+ 331 01fa 50E0      		ldi r21,hhi8(100)
+ 332 01fc 0E94 0000 		call __udivmodsi4
+ 333 0200 80E0      		ldi r24,lo8(0)
+ 334 0202 BA01      		movw r22,r20
+ 335 0204 A901      		movw r20,r18
+ 336               	.LVL13:
+ 337 0206 0E94 0000 		call IIR_Butterworth
+ 338               	.LVL14:
+ 339               	.LM40:
+ 340 020a CB01      		movw r24,r22
+ 341               	/* epilogue start */
+ 342 020c DF91      		pop r29
+ 343 020e CF91      		pop r28
+ 344               	.LVL15:
+ 345 0210 1F91      		pop r17
+ 346               	.LVL16:
+ 347 0212 0F91      		pop r16
+ 348 0214 FF90      		pop r15
+ 349 0216 EF90      		pop r14
+ 350               	.LVL17:
+ 351 0218 DF90      		pop r13
+ 352               	.LVL18:
+ 353 021a 0895      		ret
+ 354               	.LFE6:
+ 356               	.global	ADC_Read_Current
+ 358               	ADC_Read_Current:
+ 359               	.LFB7:
+ 360               	.LM41:
+ 361 021c DF92      		push r13
+ 362 021e EF92      		push r14
+ 363 0220 FF92      		push r15
+ 364 0222 0F93      		push r16
+ 365 0224 1F93      		push r17
+ 366               	/* prologue: function */
+ 367               	/* frame size = 0 */
+ 368               	.LM42:
+ 369 0226 10E0      		ldi r17,lo8(0)
+ 370               	.LVL19:
+ 371               	.L19:
+ 372               	.LBB6:
+ 373               	.LBB7:
+ 374               	.LM43:
+ 375 0228 81E0      		ldi r24,lo8(1)
+ 376 022a 0E94 0000 		call ADC_Read
+ 377               	.LBE7:
+ 378               	.LM44:
+ 379 022e 1F5F      		subi r17,lo8(-(1))
+ 380 0230 1430      		cpi r17,lo8(4)
+ 381 0232 01F4      		brne .L19
+ 382 0234 EE24      		clr r14
+ 383 0236 FF24      		clr r15
+ 384 0238 8701      		movw r16,r14
+ 385               	.LVL20:
+ 386 023a DD24      		clr r13
+ 387               	.LVL21:
+ 388               	.L20:
+ 389               	.LBE6:
+ 390               	.LBB8:
+ 391               	.LM45:
+ 392 023c 81E0      		ldi r24,lo8(1)
+ 393 023e 0E94 0000 		call ADC_Read
+ 394 0242 A0E0      		ldi r26,lo8(0)
+ 395 0244 B0E0      		ldi r27,hi8(0)
+ 396 0246 E80E      		add r14,r24
+ 397 0248 F91E      		adc r15,r25
+ 398 024a 0A1F      		adc r16,r26
+ 399 024c 1B1F      		adc r17,r27
+ 400               	.LM46:
+ 401 024e D394      		inc r13
+ 402 0250 80E1      		ldi r24,lo8(16)
+ 403 0252 D816      		cp r13,r24
+ 404 0254 01F4      		brne .L20
+ 405               	.LBE8:
+ 406               	.LM47:
+ 407 0256 54E0      		ldi r21,4
+ 408 0258 1695      	1:	lsr r17
+ 409 025a 0795      		ror r16
+ 410 025c F794      		ror r15
+ 411 025e E794      		ror r14
+ 412 0260 5A95      		dec r21
+ 413 0262 01F4      		brne 1b
+ 414               	.LM48:
+ 415 0264 C801      		movw r24,r16
+ 416 0266 B701      		movw r22,r14
+ 417 0268 28EE      		ldi r18,lo8(1000)
+ 418 026a 33E0      		ldi r19,hi8(1000)
+ 419 026c 40E0      		ldi r20,hlo8(1000)
+ 420 026e 50E0      		ldi r21,hhi8(1000)
+ 421 0270 0E94 0000 		call __mulsi3
+ 422               	.LM49:
+ 423 0274 22E3      		ldi r18,lo8(50)
+ 424 0276 30E0      		ldi r19,hi8(50)
+ 425 0278 40E0      		ldi r20,hlo8(50)
+ 426 027a 50E0      		ldi r21,hhi8(50)
+ 427 027c 0E94 0000 		call __udivmodsi4
+ 428 0280 81E0      		ldi r24,lo8(1)
+ 429 0282 BA01      		movw r22,r20
+ 430 0284 A901      		movw r20,r18
+ 431 0286 0E94 0000 		call IIR_Butterworth
+ 432               	.LM50:
+ 433 028a CB01      		movw r24,r22
+ 434               	/* epilogue start */
+ 435 028c 1F91      		pop r17
+ 436               	.LVL22:
+ 437 028e 0F91      		pop r16
+ 438 0290 FF90      		pop r15
+ 439 0292 EF90      		pop r14
+ 440               	.LVL23:
+ 441 0294 DF90      		pop r13
+ 442               	.LVL24:
+ 443 0296 0895      		ret
+ 444               	.LFE7:
+ 446               	.global	ADC_Read_Input_Voltage
+ 448               	ADC_Read_Input_Voltage:
+ 449               	.LFB8:
+ 450               	.LM51:
+ 451 0298 DF92      		push r13
+ 452 029a EF92      		push r14
+ 453 029c FF92      		push r15
+ 454 029e 0F93      		push r16
+ 455 02a0 1F93      		push r17
+ 456               	/* prologue: function */
+ 457               	/* frame size = 0 */
+ 458               	.LM52:
+ 459 02a2 10E0      		ldi r17,lo8(0)
+ 460               	.LVL25:
+ 461               	.L25:
+ 462               	.LBB9:
+ 463               	.LBB10:
+ 464               	.LM53:
+ 465 02a4 82E0      		ldi r24,lo8(2)
+ 466 02a6 0E94 0000 		call ADC_Read
+ 467               	.LBE10:
+ 468               	.LM54:
+ 469 02aa 1F5F      		subi r17,lo8(-(1))
+ 470 02ac 1430      		cpi r17,lo8(4)
+ 471 02ae 01F4      		brne .L25
+ 472 02b0 EE24      		clr r14
+ 473 02b2 FF24      		clr r15
+ 474 02b4 8701      		movw r16,r14
+ 475               	.LVL26:
+ 476 02b6 DD24      		clr r13
+ 477               	.LVL27:
+ 478               	.L26:
+ 479               	.LBE9:
+ 480               	.LBB11:
+ 481               	.LM55:
+ 482 02b8 82E0      		ldi r24,lo8(2)
+ 483 02ba 0E94 0000 		call ADC_Read
+ 484 02be A0E0      		ldi r26,lo8(0)
+ 485 02c0 B0E0      		ldi r27,hi8(0)
+ 486 02c2 E80E      		add r14,r24
+ 487 02c4 F91E      		adc r15,r25
+ 488 02c6 0A1F      		adc r16,r26
+ 489 02c8 1B1F      		adc r17,r27
+ 490               	.LM56:
+ 491 02ca D394      		inc r13
+ 492 02cc 80E1      		ldi r24,lo8(16)
+ 493 02ce D816      		cp r13,r24
+ 494 02d0 01F4      		brne .L26
+ 495               	.LBE11:
+ 496               	.LM57:
+ 497 02d2 F4E0      		ldi r31,4
+ 498 02d4 1695      	1:	lsr r17
+ 499 02d6 0795      		ror r16
+ 500 02d8 F794      		ror r15
+ 501 02da E794      		ror r14
+ 502 02dc FA95      		dec r31
+ 503 02de 01F4      		brne 1b
+ 504               	.LM58:
+ 505 02e0 C801      		movw r24,r16
+ 506 02e2 B701      		movw r22,r14
+ 507 02e4 2CE4      		ldi r18,lo8(1100)
+ 508 02e6 34E0      		ldi r19,hi8(1100)
+ 509 02e8 40E0      		ldi r20,hlo8(1100)
+ 510 02ea 50E0      		ldi r21,hhi8(1100)
+ 511 02ec 0E94 0000 		call __mulsi3
+ 512               	.LM59:
+ 513 02f0 EAE0      		ldi r30,10
+ 514 02f2 9695      	1:	lsr r25
+ 515 02f4 8795      		ror r24
+ 516 02f6 7795      		ror r23
+ 517 02f8 6795      		ror r22
+ 518 02fa EA95      		dec r30
+ 519 02fc 01F4      		brne 1b
+ 520               	.LVL28:
+ 521               	.LM60:
+ 522 02fe 22E8      		ldi r18,lo8(130)
+ 523 0300 30E0      		ldi r19,hi8(130)
+ 524 0302 40E0      		ldi r20,hlo8(130)
+ 525 0304 50E0      		ldi r21,hhi8(130)
+ 526 0306 0E94 0000 		call __mulsi3
+ 527               	.LVL29:
+ 528               	.LM61:
+ 529 030a 28EE      		ldi r18,lo8(1000)
+ 530 030c 33E0      		ldi r19,hi8(1000)
+ 531 030e 40E0      		ldi r20,hlo8(1000)
+ 532 0310 50E0      		ldi r21,hhi8(1000)
+ 533 0312 0E94 0000 		call __udivmodsi4
+ 534 0316 82E0      		ldi r24,lo8(2)
+ 535 0318 BA01      		movw r22,r20
+ 536 031a A901      		movw r20,r18
+ 537 031c 0E94 0000 		call IIR_Butterworth
+ 538 0320 862F      		mov r24,r22
+ 539               	/* epilogue start */
+ 540               	.LM62:
+ 541 0322 1F91      		pop r17
+ 542               	.LVL30:
+ 543 0324 0F91      		pop r16
+ 544 0326 FF90      		pop r15
+ 545 0328 EF90      		pop r14
+ 546 032a DF90      		pop r13
+ 547               	.LVL31:
+ 548 032c 0895      		ret
+ 549               	.LFE8:
+ 551               	.global	ADC_Read_Power_Draw
+ 553               	ADC_Read_Power_Draw:
+ 554               	.LFB9:
+ 555               	.LM63:
+ 556               	.LVL32:
+ 557 032e EF92      		push r14
+ 558 0330 FF92      		push r15
+ 559 0332 0F93      		push r16
+ 560 0334 1F93      		push r17
+ 561               	/* prologue: function */
+ 562               	/* frame size = 0 */
+ 563 0336 E82E      		mov r14,r24
+ 564               	.LM64:
+ 565 0338 0E94 0000 		call ADC_Read_Current
+ 566               	.LVL33:
+ 567 033c FF24      		clr r15
+ 568               	.LVL34:
+ 569 033e 00E0      		ldi r16,lo8(0)
+ 570 0340 10E0      		ldi r17,hi8(0)
+ 571               	.LVL35:
+ 572 0342 9C01      		movw r18,r24
+ 573 0344 40E0      		ldi r20,lo8(0)
+ 574 0346 50E0      		ldi r21,hi8(0)
+ 575 0348 C801      		movw r24,r16
+ 576 034a B701      		movw r22,r14
+ 577 034c 0E94 0000 		call __mulsi3
+ 578 0350 28EE      		ldi r18,lo8(1000)
+ 579 0352 33E0      		ldi r19,hi8(1000)
+ 580 0354 40E0      		ldi r20,hlo8(1000)
+ 581 0356 50E0      		ldi r21,hhi8(1000)
+ 582 0358 0E94 0000 		call __udivmodsi4
+ 583 035c C901      		movw r24,r18
+ 584               	/* epilogue start */
+ 585               	.LM65:
+ 586 035e 1F91      		pop r17
+ 587 0360 0F91      		pop r16
+ 588               	.LVL36:
+ 589 0362 FF90      		pop r15
+ 590               	.LVL37:
+ 591 0364 EF90      		pop r14
+ 592               	.LVL38:
+ 593 0366 0895      		ret
+ 594               	.LFE9:
+ 596               	.global	Calculate_Power_Bar
+ 598               	Calculate_Power_Bar:
+ 599               	.LFB10:
+ 600               	.LM66:
+ 601               	.LVL39:
+ 602 0368 EF92      		push r14
+ 603 036a FF92      		push r15
+ 604 036c 0F93      		push r16
+ 605 036e 1F93      		push r17
+ 606               	/* prologue: function */
+ 607               	/* frame size = 0 */
+ 608               	.LM67:
+ 609 0370 24E6      		ldi r18,lo8(100)
+ 610 0372 30E0      		ldi r19,hi8(100)
+ 611 0374 629F      		mul r22,r18
+ 612 0376 7001      		movw r14,r0
+ 613 0378 639F      		mul r22,r19
+ 614 037a F00C      		add r15,r0
+ 615 037c 729F      		mul r23,r18
+ 616 037e F00C      		add r15,r0
+ 617 0380 1124      		clr r1
+ 618 0382 00E0      		ldi r16,lo8(0)
+ 619 0384 10E0      		ldi r17,hi8(0)
+ 620               	.LVL40:
+ 621 0386 9C01      		movw r18,r24
+ 622 0388 40E0      		ldi r20,lo8(0)
+ 623 038a 50E0      		ldi r21,hi8(0)
+ 624               	.LVL41:
+ 625 038c C801      		movw r24,r16
+ 626 038e B701      		movw r22,r14
+ 627               	.LVL42:
+ 628 0390 0E94 0000 		call __udivmodsi4
+ 629 0394 822F      		mov r24,r18
+ 630               	.LVL43:
+ 631               	/* epilogue start */
+ 632               	.LM68:
+ 633 0396 1F91      		pop r17
+ 634 0398 0F91      		pop r16
+ 635               	.LVL44:
+ 636 039a FF90      		pop r15
+ 637 039c EF90      		pop r14
+ 638               	.LVL45:
+ 639 039e 0895      		ret
+ 640               	.LFE10:
+ 642               		.comm IIR,27,1
+ 731               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:2      *ABS*:0000003f __SREG__
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:3      *ABS*:0000003e __SP_H__
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:4      *ABS*:0000003d __SP_L__
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:5      *ABS*:00000034 __CCP__
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:18     .text:00000000 IIR_Butterworth_Init
+                            *COM*:0000001b IIR
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:70     .text:00000072 IIR_Butterworth
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:189    .text:00000142 ADC_Init
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:215    .text:0000015c ADC_Read
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:256    .text:00000194 ADC_Read_Temperature
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:358    .text:0000021c ADC_Read_Current
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:448    .text:00000298 ADC_Read_Input_Voltage
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:553    .text:0000032e ADC_Read_Power_Draw
+C:\Users\EED-R&I\AppData\Local\Temp/ccTZ5Oxp.s:598    .text:00000368 Calculate_Power_Bar
+
+UNDEFINED SYMBOLS
+__mulsi3
+__divmodsi4
+__udivmodsi4
+__do_clear_bss

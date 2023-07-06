@@ -1,0 +1,165 @@
+   1               		.file	"pwm.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	Iron_Heater_On
+  18               	Iron_Heater_On:
+  19               	.LFB2:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24 0000 9C01      		movw r18,r24
+  25               	.LM2:
+  26 0002 8091 0000 		lds r24,heater
+  27               	.LVL1:
+  28 0006 8823      		tst r24
+  29 0008 01F4      		brne .L4
+  30 000a 2115      		cp r18,__zero_reg__
+  31 000c 3105      		cpc r19,__zero_reg__
+  32 000e 01F0      		breq .L4
+  33               	.LM3:
+  34 0010 3093 0000 		sts (heater+5)+1,r19
+  35 0014 2093 0000 		sts heater+5,r18
+  36 0018 82E0      		ldi r24,hi8(600)
+  37 001a 2835      		cpi r18,lo8(600)
+  38 001c 3807      		cpc r19,r24
+  39 001e 00F0      		brlo .L3
+  40 0020 27E5      		ldi r18,lo8(599)
+  41 0022 32E0      		ldi r19,hi8(599)
+  42               	.LVL2:
+  43               	.L3:
+  44               	.LM4:
+  45 0024 3093 8900 		sts (136)+1,r19
+  46 0028 2093 8800 		sts 136,r18
+  47               	.LM5:
+  48 002c 8091 8000 		lds r24,128
+  49 0030 8068      		ori r24,lo8(-128)
+  50 0032 8093 8000 		sts 128,r24
+  51               	.LM6:
+  52 0036 3093 0000 		sts (heater+3)+1,r19
+  53 003a 2093 0000 		sts heater+3,r18
+  54               	.LM7:
+  55 003e 81E0      		ldi r24,lo8(1)
+  56 0040 8093 0000 		sts heater,r24
+  57               	.L4:
+  58 0044 0895      		ret
+  59               	.LFE2:
+  61               	.global	Iron_Heater_Off
+  63               	Iron_Heater_Off:
+  64               	.LFB3:
+  65               	.LM8:
+  66               	/* prologue: function */
+  67               	/* frame size = 0 */
+  68               	.LM9:
+  69 0046 8091 0000 		lds r24,heater
+  70 004a 8130      		cpi r24,lo8(1)
+  71 004c 01F4      		brne .L7
+  72               	.LM10:
+  73 004e 81E0      		ldi r24,lo8(1)
+  74 0050 90E0      		ldi r25,hi8(1)
+  75 0052 9093 8900 		sts (136)+1,r25
+  76 0056 8093 8800 		sts 136,r24
+  77               	.LM11:
+  78 005a 1092 0000 		sts (heater+3)+1,__zero_reg__
+  79 005e 1092 0000 		sts heater+3,__zero_reg__
+  80               	.LM12:
+  81 0062 1092 0000 		sts heater,__zero_reg__
+  82               	.LM13:
+  83 0066 8091 8000 		lds r24,128
+  84 006a 8F77      		andi r24,lo8(127)
+  85 006c 8093 8000 		sts 128,r24
+  86               	.L7:
+  87 0070 0895      		ret
+  88               	.LFE3:
+  90               	.global	Get_Raw_PWM_Input
+  92               	Get_Raw_PWM_Input:
+  93               	.LFB4:
+  94               	.LM14:
+  95               	/* prologue: function */
+  96               	/* frame size = 0 */
+  97               	.LM15:
+  98 0072 8091 0000 		lds r24,heater+5
+  99 0076 9091 0000 		lds r25,heater+6
+ 100               	/* epilogue start */
+ 101 007a 0895      		ret
+ 102               	.LFE4:
+ 104               	.global	Get_Current_PWM
+ 106               	Get_Current_PWM:
+ 107               	.LFB5:
+ 108               	.LM16:
+ 109               	/* prologue: function */
+ 110               	/* frame size = 0 */
+ 111               	.LM17:
+ 112 007c 8091 0000 		lds r24,heater+3
+ 113 0080 9091 0000 		lds r25,heater+4
+ 114               	/* epilogue start */
+ 115 0084 0895      		ret
+ 116               	.LFE5:
+ 118               	.global	PWM_Init
+ 120               	PWM_Init:
+ 121               	.LFB6:
+ 122               	.LM18:
+ 123               	/* prologue: function */
+ 124               	/* frame size = 0 */
+ 125               	.LM19:
+ 126 0086 219A      		sbi 36-32,1
+ 127               	.LM20:
+ 128 0088 2998      		cbi 37-32,1
+ 129               	.LM21:
+ 130 008a E0E8      		ldi r30,lo8(128)
+ 131 008c F0E0      		ldi r31,hi8(128)
+ 132 008e 82E8      		ldi r24,lo8(-126)
+ 133 0090 8083      		st Z,r24
+ 134               	.LM22:
+ 135 0092 89E1      		ldi r24,lo8(25)
+ 136 0094 8093 8100 		sts 129,r24
+ 137               	.LM23:
+ 138 0098 28E5      		ldi r18,lo8(600)
+ 139 009a 32E0      		ldi r19,hi8(600)
+ 140 009c 3093 8700 		sts (134)+1,r19
+ 141 00a0 2093 8600 		sts 134,r18
+ 142               	.LM24:
+ 143 00a4 81E0      		ldi r24,lo8(1)
+ 144 00a6 90E0      		ldi r25,hi8(1)
+ 145 00a8 9093 8900 		sts (136)+1,r25
+ 146 00ac 8093 8800 		sts 136,r24
+ 147               	.LM25:
+ 148 00b0 8081      		ld r24,Z
+ 149 00b2 8F77      		andi r24,lo8(127)
+ 150 00b4 8083      		st Z,r24
+ 151               	.LM26:
+ 152 00b6 3093 0000 		sts (heater+1)+1,r19
+ 153 00ba 2093 0000 		sts heater+1,r18
+ 154               	.LM27:
+ 155 00be 1092 0000 		sts (heater+5)+1,__zero_reg__
+ 156 00c2 1092 0000 		sts heater+5,__zero_reg__
+ 157               	.LM28:
+ 158 00c6 0E94 0000 		call Iron_Heater_Off
+ 159               	/* epilogue start */
+ 160               	.LM29:
+ 161 00ca 0895      		ret
+ 162               	.LFE6:
+ 164               		.comm heater,7,1
+ 221               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm.c
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:2      *ABS*:0000003f __SREG__
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:3      *ABS*:0000003e __SP_H__
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:4      *ABS*:0000003d __SP_L__
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:5      *ABS*:00000034 __CCP__
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:18     .text:00000000 Iron_Heater_On
+                            *COM*:00000007 heater
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:63     .text:00000046 Iron_Heater_Off
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:92     .text:00000072 Get_Raw_PWM_Input
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:106    .text:0000007c Get_Current_PWM
+C:\Users\EED-R&I\AppData\Local\Temp/ccZ4Yh7w.s:120    .text:00000086 PWM_Init
+
+UNDEFINED SYMBOLS
+__do_clear_bss

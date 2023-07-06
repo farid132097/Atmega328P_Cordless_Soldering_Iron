@@ -14,73 +14,106 @@
   22               	main:
   23               	.LFB6:
   24               	.LM1:
-  25 0000 CF93      		push r28
-  26 0002 DF93      		push r29
-  27               	/* prologue: function */
-  28               	/* frame size = 0 */
-  29               	.LM2:
-  30 0004 84E6      		ldi r24,lo8(100)
-  31 0006 90E0      		ldi r25,hi8(100)
-  32 0008 0E94 0000 		call Timebase_Init
-  33               	.LM3:
-  34 000c 60E0      		ldi r22,lo8(38400)
-  35 000e 76E9      		ldi r23,hi8(38400)
-  36 0010 80E0      		ldi r24,hlo8(38400)
-  37 0012 90E0      		ldi r25,hhi8(38400)
-  38 0014 0E94 0000 		call UART_Init
-  39               	.LBB12:
-  40               	.LBB13:
-  41               	.LBB14:
-  42               	.LBB15:
+  25 0000 EF92      		push r14
+  26 0002 FF92      		push r15
+  27 0004 0F93      		push r16
+  28 0006 1F93      		push r17
+  29 0008 CF93      		push r28
+  30 000a DF93      		push r29
+  31               	/* prologue: function */
+  32               	/* frame size = 0 */
+  33               	.LM2:
+  34 000c 84E6      		ldi r24,lo8(100)
+  35 000e 90E0      		ldi r25,hi8(100)
+  36 0010 0E94 0000 		call Timebase_Init
+  37               	.LM3:
+  38 0014 60E0      		ldi r22,lo8(38400)
+  39 0016 76E9      		ldi r23,hi8(38400)
+  40 0018 80E0      		ldi r24,hlo8(38400)
+  41 001a 90E0      		ldi r25,hhi8(38400)
+  42 001c 0E94 0000 		call UART_Init
   43               	.LM4:
-  44 0018 C0E3      		ldi r28,lo8(30000)
-  45 001a D5E7      		ldi r29,hi8(30000)
-  46               	.L2:
-  47               	.LBE15:
-  48               	.LBE14:
-  49               	.LBE13:
-  50               	.LBE12:
-  51               	.LM5:
-  52 001c 0E94 0000 		call Timebase_Timer_Get_SubSeconds
-  53 0020 0E94 0000 		call UART_Transmit_Number
-  54               	.LM6:
-  55 0024 80E0      		ldi r24,lo8(.LC0)
-  56 0026 90E0      		ldi r25,hi8(.LC0)
-  57 0028 0E94 0000 		call UART_Transmit_Text
-  58               	.LBB19:
-  59               	.LBB18:
-  60               	.LBB17:
-  61               	.LBB16:
-  62               	.LM7:
-  63 002c CE01      		movw r24,r28
-  64               	.LVL0:
-  65               	/* #APP */
-  66               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
-  67 002e 0197      		1: sbiw r24,1
-  68 0030 01F4      		brne 1b
-  69               	 ;  0 "" 2
-  70               	/* #NOAPP */
-  71 0032 00C0      		rjmp .L2
-  72               	.LBE16:
-  73               	.LBE17:
-  74               	.LBE18:
-  75               	.LBE19:
-  76               	.LFE6:
- 102               	.Letext0:
+  44 0020 0E94 0000 		call ADC_Init
+  45               	.LM5:
+  46 0024 0E94 0000 		call PWM_Init
+  47 0028 EE24      		clr r14
+  48 002a FF24      		clr r15
+  49 002c 8701      		movw r16,r14
+  50               	.LVL0:
+  51               	.LBB12:
+  52               	.LBB13:
+  53               	.LBB14:
+  54               	.LBB15:
+  55               	.LM6:
+  56 002e C0E3      		ldi r28,lo8(30000)
+  57 0030 D5E7      		ldi r29,hi8(30000)
+  58               	.LVL1:
+  59               	.L6:
+  60               	.LBE15:
+  61               	.LBE14:
+  62               	.LBE13:
+  63               	.LBE12:
+  64               	.LM7:
+  65 0032 0E94 0000 		call Timebase_Timer_Get_SubSeconds
+  66               	.LVL2:
+  67 0036 6E15      		cp r22,r14
+  68 0038 7F05      		cpc r23,r15
+  69 003a 8007      		cpc r24,r16
+  70 003c 9107      		cpc r25,r17
+  71 003e 01F0      		breq .L6
+  72               	.LM8:
+  73 0040 0E94 0000 		call Timebase_Timer_Get_SubSeconds
+  74 0044 7B01      		movw r14,r22
+  75 0046 8C01      		movw r16,r24
+  76               	.LM9:
+  77 0048 80E5      		ldi r24,lo8(80)
+  78 004a 0E94 0000 		call ADC_Read_Temperature
+  79 004e A0E0      		ldi r26,lo8(0)
+  80 0050 B0E0      		ldi r27,hi8(0)
+  81 0052 BC01      		movw r22,r24
+  82 0054 CD01      		movw r24,r26
+  83 0056 0E94 0000 		call UART_Transmit_Number
+  84               	.LM10:
+  85 005a 80E0      		ldi r24,lo8(.LC0)
+  86 005c 90E0      		ldi r25,hi8(.LC0)
+  87 005e 0E94 0000 		call UART_Transmit_Text
+  88               	.LBB19:
+  89               	.LBB18:
+  90               	.LBB17:
+  91               	.LBB16:
+  92               	.LM11:
+  93 0062 CE01      		movw r24,r28
+  94               	.LVL3:
+  95               	/* #APP */
+  96               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+  97 0064 0197      		1: sbiw r24,1
+  98 0066 01F4      		brne 1b
+  99               	 ;  0 "" 2
+ 100               	/* #NOAPP */
+ 101 0068 00C0      		rjmp .L6
+ 102               	.LBE16:
+ 103               	.LBE17:
+ 104               	.LBE18:
+ 105               	.LBE19:
+ 106               	.LFE6:
+ 132               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:2      *ABS*:0000003f __SREG__
-C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:3      *ABS*:0000003e __SP_H__
-C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:4      *ABS*:0000003d __SP_L__
-C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:5      *ABS*:00000034 __CCP__
-C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:22     .text:00000000 main
+C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:2      *ABS*:0000003f __SREG__
+C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:3      *ABS*:0000003e __SP_H__
+C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:4      *ABS*:0000003d __SP_L__
+C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:5      *ABS*:00000034 __CCP__
+C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:22     .text:00000000 main
 
 UNDEFINED SYMBOLS
 Timebase_Init
 UART_Init
+ADC_Init
+PWM_Init
 Timebase_Timer_Get_SubSeconds
+ADC_Read_Temperature
 UART_Transmit_Number
 UART_Transmit_Text
 __do_copy_data

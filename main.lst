@@ -1,0 +1,88 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 4865 6C6C 		.string	"Hello\r\n"
+  18      6F0D 0A00 
+  19               		.text
+  20               	.global	main
+  22               	main:
+  23               	.LFB6:
+  24               	.LM1:
+  25 0000 CF93      		push r28
+  26 0002 DF93      		push r29
+  27               	/* prologue: function */
+  28               	/* frame size = 0 */
+  29               	.LM2:
+  30 0004 60E0      		ldi r22,lo8(38400)
+  31 0006 76E9      		ldi r23,hi8(38400)
+  32 0008 80E0      		ldi r24,hlo8(38400)
+  33 000a 90E0      		ldi r25,hhi8(38400)
+  34 000c 0E94 0000 		call UART_Init
+  35               	.LBB12:
+  36               	.LBB13:
+  37               	.LBB14:
+  38               	.LBB15:
+  39               	.LM3:
+  40 0010 CCE2      		ldi r28,lo8(300)
+  41 0012 D1E0      		ldi r29,hi8(300)
+  42               	.LVL0:
+  43               	.L3:
+  44               	.LBE15:
+  45               	.LBE14:
+  46               	.LBE13:
+  47               	.LBE12:
+  48               	.LM4:
+  49 0014 80E0      		ldi r24,lo8(.LC0)
+  50 0016 90E0      		ldi r25,hi8(.LC0)
+  51               	.LVL1:
+  52 0018 0E94 0000 		call UART_Transmit_Text
+  53               	.LVL2:
+  54 001c 80E1      		ldi r24,lo8(10000)
+  55 001e 97E2      		ldi r25,hi8(10000)
+  56               	.LVL3:
+  57               	.L2:
+  58               	.LBB19:
+  59               	.LBB18:
+  60               	.LBB17:
+  61               	.LBB16:
+  62               	.LM5:
+  63 0020 FE01      		movw r30,r28
+  64               	.LVL4:
+  65               	/* #APP */
+  66               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+  67 0022 3197      		1: sbiw r30,1
+  68 0024 01F4      		brne 1b
+  69               	 ;  0 "" 2
+  70               	/* #NOAPP */
+  71               	.LBE16:
+  72               	.LBE17:
+  73               	.LM6:
+  74 0026 0197      		sbiw r24,1
+  75               	.LM7:
+  76 0028 01F4      		brne .L2
+  77 002a 00C0      		rjmp .L3
+  78               	.LBE18:
+  79               	.LBE19:
+  80               	.LFE6:
+ 106               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:2      *ABS*:0000003f __SREG__
+C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:3      *ABS*:0000003e __SP_H__
+C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:4      *ABS*:0000003d __SP_L__
+C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:5      *ABS*:00000034 __CCP__
+C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:22     .text:00000000 main
+
+UNDEFINED SYMBOLS
+UART_Init
+UART_Transmit_Text
+__do_copy_data

@@ -8,8 +8,7 @@
   15               	.Ltext0:
   16               		.data
   17               	.LC0:
-  18 0000 4865 6C6C 		.string	"Hello\r\n"
-  18      6F0D 0A00 
+  18 0000 0D0A 00   		.string	"\r\n"
   19               		.text
   20               	.global	main
   22               	main:
@@ -20,69 +19,68 @@
   27               	/* prologue: function */
   28               	/* frame size = 0 */
   29               	.LM2:
-  30 0004 60E0      		ldi r22,lo8(38400)
-  31 0006 76E9      		ldi r23,hi8(38400)
-  32 0008 80E0      		ldi r24,hlo8(38400)
-  33 000a 90E0      		ldi r25,hhi8(38400)
-  34 000c 0E94 0000 		call UART_Init
-  35               	.LBB12:
-  36               	.LBB13:
-  37               	.LBB14:
-  38               	.LBB15:
-  39               	.LM3:
-  40 0010 CCE2      		ldi r28,lo8(300)
-  41 0012 D1E0      		ldi r29,hi8(300)
-  42               	.LVL0:
-  43               	.L3:
-  44               	.LBE15:
-  45               	.LBE14:
-  46               	.LBE13:
-  47               	.LBE12:
-  48               	.LM4:
-  49 0014 80E0      		ldi r24,lo8(.LC0)
-  50 0016 90E0      		ldi r25,hi8(.LC0)
-  51               	.LVL1:
-  52 0018 0E94 0000 		call UART_Transmit_Text
-  53               	.LVL2:
-  54 001c 80E1      		ldi r24,lo8(10000)
-  55 001e 97E2      		ldi r25,hi8(10000)
-  56               	.LVL3:
-  57               	.L2:
+  30 0004 84E6      		ldi r24,lo8(100)
+  31 0006 90E0      		ldi r25,hi8(100)
+  32 0008 0E94 0000 		call Timebase_Init
+  33               	.LM3:
+  34 000c 60E0      		ldi r22,lo8(38400)
+  35 000e 76E9      		ldi r23,hi8(38400)
+  36 0010 80E0      		ldi r24,hlo8(38400)
+  37 0012 90E0      		ldi r25,hhi8(38400)
+  38 0014 0E94 0000 		call UART_Init
+  39               	.LBB12:
+  40               	.LBB13:
+  41               	.LBB14:
+  42               	.LBB15:
+  43               	.LM4:
+  44 0018 C0E3      		ldi r28,lo8(30000)
+  45 001a D5E7      		ldi r29,hi8(30000)
+  46               	.L2:
+  47               	.LBE15:
+  48               	.LBE14:
+  49               	.LBE13:
+  50               	.LBE12:
+  51               	.LM5:
+  52 001c 0E94 0000 		call Timebase_Timer_Get_SubSeconds
+  53 0020 0E94 0000 		call UART_Transmit_Number
+  54               	.LM6:
+  55 0024 80E0      		ldi r24,lo8(.LC0)
+  56 0026 90E0      		ldi r25,hi8(.LC0)
+  57 0028 0E94 0000 		call UART_Transmit_Text
   58               	.LBB19:
   59               	.LBB18:
   60               	.LBB17:
   61               	.LBB16:
-  62               	.LM5:
-  63 0020 FE01      		movw r30,r28
-  64               	.LVL4:
+  62               	.LM7:
+  63 002c CE01      		movw r24,r28
+  64               	.LVL0:
   65               	/* #APP */
   66               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
-  67 0022 3197      		1: sbiw r30,1
-  68 0024 01F4      		brne 1b
+  67 002e 0197      		1: sbiw r24,1
+  68 0030 01F4      		brne 1b
   69               	 ;  0 "" 2
   70               	/* #NOAPP */
-  71               	.LBE16:
-  72               	.LBE17:
-  73               	.LM6:
-  74 0026 0197      		sbiw r24,1
-  75               	.LM7:
-  76 0028 01F4      		brne .L2
-  77 002a 00C0      		rjmp .L3
-  78               	.LBE18:
-  79               	.LBE19:
-  80               	.LFE6:
- 106               	.Letext0:
+  71 0032 00C0      		rjmp .L2
+  72               	.LBE16:
+  73               	.LBE17:
+  74               	.LBE18:
+  75               	.LBE19:
+  76               	.LFE6:
+ 102               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:2      *ABS*:0000003f __SREG__
-C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:3      *ABS*:0000003e __SP_H__
-C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:4      *ABS*:0000003d __SP_L__
-C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:5      *ABS*:00000034 __CCP__
-C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/ccVlXv47.s:22     .text:00000000 main
+C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:2      *ABS*:0000003f __SREG__
+C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:3      *ABS*:0000003e __SP_H__
+C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:4      *ABS*:0000003d __SP_L__
+C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:5      *ABS*:00000034 __CCP__
+C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/ccmOXFlv.s:22     .text:00000000 main
 
 UNDEFINED SYMBOLS
+Timebase_Init
 UART_Init
+Timebase_Timer_Get_SubSeconds
+UART_Transmit_Number
 UART_Transmit_Text
 __do_copy_data

@@ -3,18 +3,18 @@
 #include <avr/io.h>
 
 
-#define IIR_BUTTERWORTH_TEMP_ALPHA      80
-#define IIR_BUTTERWORTH_CURR_ALPHA      70
+#define IIR_BUTTERWORTH_TEMP_ALPHA      60
+#define IIR_BUTTERWORTH_CURR_ALPHA      30
 #define IIR_BUTTERWORTH_VOLT_ALPHA      70
 
 
-#define ADC_IVREF      1100
+#define ADC_IVREF      1110
 #define ADC_VSNS_VDIV  130
 #define ADC_CHANNEL_T  0
 #define ADC_CHANNEL_I  1
 #define ADC_CHANNEL_V  2
 #define ADC_SMPL_DUMMY 4
-#define ADC_SMPL_T     128
+#define ADC_SMPL_T     64
 #define ADC_SMPL_I     16
 #define ADC_SMPL_V     16
 #define SENSE_RES_I    50

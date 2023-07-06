@@ -8,112 +8,187 @@
   15               	.Ltext0:
   16               		.data
   17               	.LC0:
-  18 0000 0D0A 00   		.string	"\r\n"
-  19               		.text
-  20               	.global	main
-  22               	main:
-  23               	.LFB6:
-  24               	.LM1:
-  25 0000 EF92      		push r14
-  26 0002 FF92      		push r15
-  27 0004 0F93      		push r16
-  28 0006 1F93      		push r17
-  29 0008 CF93      		push r28
-  30 000a DF93      		push r29
-  31               	/* prologue: function */
-  32               	/* frame size = 0 */
-  33               	.LM2:
-  34 000c 84E6      		ldi r24,lo8(100)
-  35 000e 90E0      		ldi r25,hi8(100)
-  36 0010 0E94 0000 		call Timebase_Init
-  37               	.LM3:
-  38 0014 60E0      		ldi r22,lo8(38400)
-  39 0016 76E9      		ldi r23,hi8(38400)
-  40 0018 80E0      		ldi r24,hlo8(38400)
-  41 001a 90E0      		ldi r25,hhi8(38400)
-  42 001c 0E94 0000 		call UART_Init
-  43               	.LM4:
-  44 0020 0E94 0000 		call ADC_Init
-  45               	.LM5:
-  46 0024 0E94 0000 		call PWM_Init
-  47 0028 EE24      		clr r14
-  48 002a FF24      		clr r15
-  49 002c 8701      		movw r16,r14
-  50               	.LVL0:
-  51               	.LBB12:
-  52               	.LBB13:
-  53               	.LBB14:
-  54               	.LBB15:
-  55               	.LM6:
-  56 002e C0E3      		ldi r28,lo8(30000)
-  57 0030 D5E7      		ldi r29,hi8(30000)
-  58               	.LVL1:
-  59               	.L6:
-  60               	.LBE15:
-  61               	.LBE14:
-  62               	.LBE13:
-  63               	.LBE12:
-  64               	.LM7:
-  65 0032 0E94 0000 		call Timebase_Timer_Get_SubSeconds
-  66               	.LVL2:
-  67 0036 6E15      		cp r22,r14
-  68 0038 7F05      		cpc r23,r15
-  69 003a 8007      		cpc r24,r16
-  70 003c 9107      		cpc r25,r17
-  71 003e 01F0      		breq .L6
-  72               	.LM8:
-  73 0040 0E94 0000 		call Timebase_Timer_Get_SubSeconds
-  74 0044 7B01      		movw r14,r22
-  75 0046 8C01      		movw r16,r24
-  76               	.LM9:
-  77 0048 80E5      		ldi r24,lo8(80)
-  78 004a 0E94 0000 		call ADC_Read_Temperature
-  79 004e A0E0      		ldi r26,lo8(0)
-  80 0050 B0E0      		ldi r27,hi8(0)
-  81 0052 BC01      		movw r22,r24
-  82 0054 CD01      		movw r24,r26
-  83 0056 0E94 0000 		call UART_Transmit_Number
-  84               	.LM10:
-  85 005a 80E0      		ldi r24,lo8(.LC0)
-  86 005c 90E0      		ldi r25,hi8(.LC0)
-  87 005e 0E94 0000 		call UART_Transmit_Text
-  88               	.LBB19:
-  89               	.LBB18:
-  90               	.LBB17:
-  91               	.LBB16:
-  92               	.LM11:
-  93 0062 CE01      		movw r24,r28
-  94               	.LVL3:
-  95               	/* #APP */
-  96               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
-  97 0064 0197      		1: sbiw r24,1
-  98 0066 01F4      		brne 1b
-  99               	 ;  0 "" 2
- 100               	/* #NOAPP */
- 101 0068 00C0      		rjmp .L6
- 102               	.LBE16:
- 103               	.LBE17:
- 104               	.LBE18:
- 105               	.LBE19:
- 106               	.LFE6:
- 132               	.Letext0:
+  18 0000 2C00      		.string	","
+  19               	.LC1:
+  20 0002 0D0A 00   		.string	"\r\n"
+  21               		.text
+  22               	.global	main
+  24               	main:
+  25               	.LFB6:
+  26               	.LM1:
+  27 0000 AF92      		push r10
+  28 0002 BF92      		push r11
+  29 0004 CF92      		push r12
+  30 0006 DF92      		push r13
+  31 0008 EF92      		push r14
+  32 000a FF92      		push r15
+  33 000c 0F93      		push r16
+  34 000e 1F93      		push r17
+  35 0010 CF93      		push r28
+  36 0012 DF93      		push r29
+  37               	/* prologue: function */
+  38               	/* frame size = 0 */
+  39               	.LM2:
+  40 0014 84E6      		ldi r24,lo8(100)
+  41 0016 90E0      		ldi r25,hi8(100)
+  42 0018 0E94 0000 		call Timebase_Init
+  43               	.LM3:
+  44 001c 60E0      		ldi r22,lo8(38400)
+  45 001e 76E9      		ldi r23,hi8(38400)
+  46 0020 80E0      		ldi r24,hlo8(38400)
+  47 0022 90E0      		ldi r25,hhi8(38400)
+  48 0024 0E94 0000 		call UART_Init
+  49               	.LM4:
+  50 0028 0E94 0000 		call ADC_Init
+  51               	.LM5:
+  52 002c 0E94 0000 		call PWM_Init
+  53 0030 C0E0      		ldi r28,lo8(0)
+  54 0032 D0E0      		ldi r29,hi8(0)
+  55               	.LVL0:
+  56               	.LBB19:
+  57               	.LBB20:
+  58               	.LBB21:
+  59               	.LBB22:
+  60               	.LBB23:
+  61               	.LM6:
+  62 0034 90E6      		ldi r25,lo8(-5536)
+  63 0036 A92E      		mov r10,r25
+  64 0038 9AEE      		ldi r25,hi8(-5536)
+  65 003a B92E      		mov r11,r25
+  66               	.LBE23:
+  67               	.LBE22:
+  68               	.LBE21:
+  69               	.LBE20:
+  70               	.LBB27:
+  71               	.LBB28:
+  72               	.LBB29:
+  73               	.LBB30:
+  74 003c 88E9      		ldi r24,lo8(15000)
+  75 003e C82E      		mov r12,r24
+  76 0040 8AE3      		ldi r24,hi8(15000)
+  77 0042 D82E      		mov r13,r24
+  78               	.LVL1:
+  79               	.L3:
+  80               	.LBE30:
+  81               	.LBE29:
+  82               	.LBE28:
+  83               	.LBE27:
+  84               	.LM7:
+  85 0044 0E94 0000 		call UART_Last_Received_Byte
+  86 0048 8F36      		cpi r24,lo8(111)
+  87 004a 01F4      		brne .L2
+  88 004c C450      		subi r28,lo8(260)
+  89 004e D140      		sbci r29,hi8(260)
+  90 0050 00F4      		brsh .L2
+  91               	.LM8:
+  92 0052 84EF      		ldi r24,lo8(500)
+  93 0054 91E0      		ldi r25,hi8(500)
+  94 0056 0E94 0000 		call Iron_Heater_On
+  95               	.L2:
+  96               	.LBB34:
+  97               	.LBB26:
+  98               	.LBB25:
+  99               	.LBB24:
+ 100               	.LM9:
+ 101 005a C501      		movw r24,r10
+ 102               	.LVL2:
+ 103               	/* #APP */
+ 104               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 105 005c 0197      		1: sbiw r24,1
+ 106 005e 01F4      		brne 1b
+ 107               	 ;  0 "" 2
+ 108               	/* #NOAPP */
+ 109               	.LBE24:
+ 110               	.LBE25:
+ 111               	.LBE26:
+ 112               	.LBE34:
+ 113               	.LM10:
+ 114 0060 0E94 0000 		call ADC_Read_Current
+ 115               	.LVL3:
+ 116 0064 7C01      		movw r14,r24
+ 117               	.LM11:
+ 118 0066 0E94 0000 		call Iron_Heater_Off
+ 119               	.LBB35:
+ 120               	.LBB33:
+ 121               	.LBB32:
+ 122               	.LBB31:
+ 123               	.LM12:
+ 124 006a C601      		movw r24,r12
+ 125               	.LVL4:
+ 126               	/* #APP */
+ 127               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 128 006c 0197      		1: sbiw r24,1
+ 129 006e 01F4      		brne 1b
+ 130               	 ;  0 "" 2
+ 131               	/* #NOAPP */
+ 132               	.LBE31:
+ 133               	.LBE32:
+ 134               	.LBE33:
+ 135               	.LBE35:
+ 136               	.LM13:
+ 137 0070 80E5      		ldi r24,lo8(80)
+ 138               	.LVL5:
+ 139 0072 0E94 0000 		call ADC_Read_Temperature
+ 140 0076 EC01      		movw r28,r24
+ 141               	.LM14:
+ 142 0078 0E94 0000 		call ADC_Read_Input_Voltage
+ 143               	.LM15:
+ 144 007c 90E0      		ldi r25,lo8(0)
+ 145 007e A0E0      		ldi r26,lo8(0)
+ 146 0080 B0E0      		ldi r27,hi8(0)
+ 147 0082 BC01      		movw r22,r24
+ 148 0084 CD01      		movw r24,r26
+ 149 0086 0E94 0000 		call UART_Transmit_Number
+ 150               	.LM16:
+ 151 008a 80E0      		ldi r24,lo8(.LC0)
+ 152 008c 90E0      		ldi r25,hi8(.LC0)
+ 153 008e 0E94 0000 		call UART_Transmit_Text
+ 154               	.LM17:
+ 155 0092 00E0      		ldi r16,lo8(0)
+ 156 0094 10E0      		ldi r17,hi8(0)
+ 157 0096 C801      		movw r24,r16
+ 158 0098 B701      		movw r22,r14
+ 159 009a 0E94 0000 		call UART_Transmit_Number
+ 160               	.LM18:
+ 161 009e 80E0      		ldi r24,lo8(.LC0)
+ 162 00a0 90E0      		ldi r25,hi8(.LC0)
+ 163 00a2 0E94 0000 		call UART_Transmit_Text
+ 164               	.LM19:
+ 165 00a6 BE01      		movw r22,r28
+ 166 00a8 80E0      		ldi r24,lo8(0)
+ 167 00aa 90E0      		ldi r25,hi8(0)
+ 168               	.LVL6:
+ 169 00ac 0E94 0000 		call UART_Transmit_Number
+ 170               	.LVL7:
+ 171               	.LM20:
+ 172 00b0 80E0      		ldi r24,lo8(.LC1)
+ 173 00b2 90E0      		ldi r25,hi8(.LC1)
+ 174 00b4 0E94 0000 		call UART_Transmit_Text
+ 175 00b8 00C0      		rjmp .L3
+ 176               	.LBE19:
+ 177               	.LFE6:
+ 203               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:2      *ABS*:0000003f __SREG__
-C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:3      *ABS*:0000003e __SP_H__
-C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:4      *ABS*:0000003d __SP_L__
-C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:5      *ABS*:00000034 __CCP__
-C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/cco4aKUf.s:22     .text:00000000 main
+C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:2      *ABS*:0000003f __SREG__
+C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:3      *ABS*:0000003e __SP_H__
+C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:4      *ABS*:0000003d __SP_L__
+C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:5      *ABS*:00000034 __CCP__
+C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:24     .text:00000000 main
 
 UNDEFINED SYMBOLS
 Timebase_Init
 UART_Init
 ADC_Init
 PWM_Init
-Timebase_Timer_Get_SubSeconds
+UART_Last_Received_Byte
+Iron_Heater_On
+ADC_Read_Current
+Iron_Heater_Off
 ADC_Read_Temperature
+ADC_Read_Input_Voltage
 UART_Transmit_Number
 UART_Transmit_Text
 __do_copy_data

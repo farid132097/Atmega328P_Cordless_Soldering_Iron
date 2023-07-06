@@ -25,6 +25,7 @@ typedef struct uart_t{
   uint8_t            InputNumberDigits;
 
   #ifdef UART_ENABLE_RX_INT
+  volatile uint8_t   LastByteReceived;
   volatile uint8_t   Buffer[UART_BUFFER_SIZE];
   volatile uint16_t  BufferSize;
   volatile uint16_t  BufferIndex;
@@ -106,6 +107,9 @@ uint8_t UART_Receive_Byte(void){
   return val;
 }
 
+uint8_t UART_Last_Received_Byte(void){
+  return UART.LastByteReceived;
+}
 
 #ifdef UART_LAST_RECEIVED_TIMESTAMP
 uint32_t UART_Reference_Time(void){
@@ -122,6 +126,7 @@ void UART_Struct_Init(void){
   UART.InputNumberDigits=0;
     
   #ifdef UART_ENABLE_RX_INT
+  UART.LastByteReceived=0;
   UART.BufferSize=UART_BUFFER_SIZE;
   UART.BufferIndex=0;
   for(uint8_t i=0;i<UART.BufferSize;i++){
@@ -349,6 +354,7 @@ void UART_Interrupt_Service_Routine(void){
   volatile uint8_t received_byte=0;
   received_byte=(uint8_t)UART_Receive_Byte();
   if(UART.Error==0x00){
+    UART.LastByteReceived=received_byte;
     UART.Buffer[UART.BufferIndex]=received_byte;
     UART.BufferIndex++;
 

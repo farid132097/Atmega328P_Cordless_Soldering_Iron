@@ -14,6 +14,7 @@ void     UART_Config_Receiver(void);
 void     UART_Config_Receiver_Interrupt(void);
 void     UART_Transmit_Byte(uint8_t val);
 uint8_t  UART_Receive_Byte(void);
+uint8_t  UART_Last_Received_Byte(void);
 uint32_t UART_Reference_Time(void);
 void     UART_Struct_Init(void);
 void     UART_Transmit_Byte_Hex(uint32_t val);

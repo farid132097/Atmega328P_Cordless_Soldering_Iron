@@ -18,7 +18,7 @@ int main(void){
   PID_Init();
   Debug_Init();
   Timebase_Timer_Await_SubSeconds(2);
-  Iron_Set_Max_PWM_Div_Fact(2);
+  Iron_Set_Max_PWM_Div_Fact(4);
   
   while(1){
     
@@ -26,7 +26,9 @@ int main(void){
     Iron_Heater_Off();
 	_delay_ms(5);
 	ADC_Read_Temperature();
-	ADC_Set_Temperature_Factor(80);       //update tempfact
+	Iron_Heater_On(250);
+	
+	/*ADC_Set_Temperature_Factor(80);       //update tempfact
 	PID_Set_Constants(800, 20, 20);       //update const
 	PID_Set_Max_IError(250);              //update ierror
 	ADC_Set_Max_Power(36000);             //update power mW
@@ -34,7 +36,7 @@ int main(void){
 	PID_Set_SetPoint(200);
 	PID_Set_ProcessValue(ADC_Get_Temperature());
 	PID_Execute_Routine();
-	Iron_Heater_Control();
+	Iron_Heater_Control();*/
 	
 	_delay_ms(3);
 	

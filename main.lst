@@ -10,172 +10,122 @@
   18               	main:
   19               	.LFB6:
   20               	.LM1:
-  21 0000 CF92      		push r12
-  22 0002 DF92      		push r13
-  23 0004 EF92      		push r14
-  24 0006 FF92      		push r15
-  25 0008 0F93      		push r16
-  26 000a 1F93      		push r17
-  27 000c CF93      		push r28
-  28 000e DF93      		push r29
-  29               	/* prologue: function */
-  30               	/* frame size = 0 */
-  31               	.LM2:
-  32 0010 82E3      		ldi r24,lo8(50)
-  33 0012 90E0      		ldi r25,hi8(50)
-  34 0014 0E94 0000 		call Timebase_Init
-  35               	.LM3:
-  36 0018 0E94 0000 		call PWM_Init
-  37               	.LM4:
-  38 001c 0E94 0000 		call ADC_Init
-  39               	.LM5:
-  40 0020 0E94 0000 		call PID_Init
-  41               	.LM6:
-  42 0024 0E94 0000 		call Debug_Init
-  43               	.LM7:
-  44 0028 82E0      		ldi r24,lo8(2)
-  45 002a 90E0      		ldi r25,hi8(2)
-  46 002c 0E94 0000 		call Timebase_Timer_Await_SubSeconds
-  47               	.LM8:
-  48 0030 82E0      		ldi r24,lo8(2)
-  49 0032 90E0      		ldi r25,hi8(2)
-  50 0034 0E94 0000 		call Iron_Set_Max_PWM_Div_Fact
-  51               	.LBB18:
-  52               	.LBB19:
-  53               	.LBB20:
-  54               	.LBB21:
-  55               	.LM9:
-  56 0038 F8E9      		ldi r31,lo8(15000)
-  57 003a CF2E      		mov r12,r31
-  58 003c FAE3      		ldi r31,hi8(15000)
-  59 003e DF2E      		mov r13,r31
-  60               	.LBE21:
-  61               	.LBE20:
-  62               	.LBE19:
-  63               	.LBE18:
-  64               	.LBB25:
-  65               	.LBB26:
-  66               	.LBB27:
-  67               	.LBB28:
-  68 0040 C8E2      		ldi r28,lo8(9000)
-  69 0042 D3E2      		ldi r29,hi8(9000)
-  70               	.L2:
-  71               	.LBE28:
-  72               	.LBE27:
-  73               	.LBE26:
-  74               	.LBE25:
-  75               	.LM10:
-  76 0044 85E0      		ldi r24,lo8(5)
-  77 0046 90E0      		ldi r25,hi8(5)
-  78 0048 0E94 0000 		call Timebase_Timer_Await_SubSeconds
-  79               	.LM11:
-  80 004c 0E94 0000 		call Iron_Heater_Off
-  81               	.LBB32:
-  82               	.LBB24:
-  83               	.LBB23:
-  84               	.LBB22:
-  85               	.LM12:
-  86 0050 C601      		movw r24,r12
-  87               	.LVL0:
-  88               	/* #APP */
-  89               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
-  90 0052 0197      		1: sbiw r24,1
-  91 0054 01F4      		brne 1b
-  92               	 ;  0 "" 2
-  93               	/* #NOAPP */
-  94               	.LBE22:
-  95               	.LBE23:
-  96               	.LBE24:
-  97               	.LBE32:
-  98               	.LM13:
-  99 0056 0E94 0000 		call ADC_Read_Temperature
- 100               	.LVL1:
- 101               	.LM14:
- 102 005a 80E5      		ldi r24,lo8(80)
- 103 005c 90E0      		ldi r25,hi8(80)
- 104 005e 0E94 0000 		call ADC_Set_Temperature_Factor
- 105               	.LM15:
- 106 0062 60E2      		ldi r22,lo8(800)
- 107 0064 73E0      		ldi r23,hi8(800)
- 108 0066 80E0      		ldi r24,hlo8(800)
- 109 0068 90E0      		ldi r25,hhi8(800)
- 110 006a 24E1      		ldi r18,lo8(20)
- 111 006c 30E0      		ldi r19,hi8(20)
- 112 006e 40E0      		ldi r20,hlo8(20)
- 113 0070 50E0      		ldi r21,hhi8(20)
- 114 0072 E4E1      		ldi r30,lo8(20)
- 115 0074 EE2E      		mov r14,r30
- 116 0076 F12C      		mov r15,__zero_reg__
- 117 0078 012D      		mov r16,__zero_reg__
- 118 007a 112D      		mov r17,__zero_reg__
- 119 007c 0E94 0000 		call PID_Set_Constants
- 120               	.LM16:
- 121 0080 6AEF      		ldi r22,lo8(250)
- 122 0082 70E0      		ldi r23,hi8(250)
- 123 0084 80E0      		ldi r24,hlo8(250)
- 124 0086 90E0      		ldi r25,hhi8(250)
- 125 0088 0E94 0000 		call PID_Set_Max_IError
- 126               	.LM17:
- 127 008c 60EA      		ldi r22,lo8(36000)
- 128 008e 7CE8      		ldi r23,hi8(36000)
- 129 0090 80E0      		ldi r24,hlo8(36000)
- 130 0092 90E0      		ldi r25,hhi8(36000)
- 131 0094 0E94 0000 		call ADC_Set_Max_Power
- 132               	.LM18:
- 133 0098 68EC      		ldi r22,lo8(200)
- 134 009a 70E0      		ldi r23,hi8(200)
- 135 009c 80E0      		ldi r24,hlo8(200)
- 136 009e 90E0      		ldi r25,hhi8(200)
- 137 00a0 0E94 0000 		call PID_Set_SetPoint
- 138               	.LM19:
- 139 00a4 0E94 0000 		call ADC_Get_Temperature
- 140 00a8 A0E0      		ldi r26,lo8(0)
- 141 00aa B0E0      		ldi r27,hi8(0)
- 142 00ac BC01      		movw r22,r24
- 143 00ae CD01      		movw r24,r26
- 144 00b0 0E94 0000 		call PID_Set_ProcessValue
- 145               	.LM20:
- 146 00b4 0E94 0000 		call PID_Execute_Routine
- 147               	.LM21:
- 148 00b8 0E94 0000 		call Iron_Heater_Control
- 149               	.LBB33:
- 150               	.LBB31:
- 151               	.LBB30:
- 152               	.LBB29:
- 153               	.LM22:
- 154 00bc CE01      		movw r24,r28
- 155               	.LVL2:
- 156               	/* #APP */
- 157               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
- 158 00be 0197      		1: sbiw r24,1
- 159 00c0 01F4      		brne 1b
- 160               	 ;  0 "" 2
- 161               	/* #NOAPP */
- 162               	.LBE29:
- 163               	.LBE30:
- 164               	.LBE31:
- 165               	.LBE33:
- 166               	.LM23:
- 167 00c2 0E94 0000 		call Debug_Print_PID_SetPoint
- 168               	.LVL3:
- 169               	.LM24:
- 170 00c6 0E94 0000 		call Debug_Print_Current_Temperature
- 171               	.LM25:
- 172 00ca 0E94 0000 		call Debug_Print_Power_Draw
- 173               	.LM26:
- 174 00ce 0E94 0000 		call UART_Transmit_New_Line
- 175 00d2 00C0      		rjmp .L2
- 176               	.LFE6:
- 202               	.Letext0:
+  21 0000 0F93      		push r16
+  22 0002 1F93      		push r17
+  23 0004 CF93      		push r28
+  24 0006 DF93      		push r29
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27               	.LM2:
+  28 0008 82E3      		ldi r24,lo8(50)
+  29 000a 90E0      		ldi r25,hi8(50)
+  30 000c 0E94 0000 		call Timebase_Init
+  31               	.LM3:
+  32 0010 0E94 0000 		call PWM_Init
+  33               	.LM4:
+  34 0014 0E94 0000 		call ADC_Init
+  35               	.LM5:
+  36 0018 0E94 0000 		call PID_Init
+  37               	.LM6:
+  38 001c 0E94 0000 		call Debug_Init
+  39               	.LM7:
+  40 0020 82E0      		ldi r24,lo8(2)
+  41 0022 90E0      		ldi r25,hi8(2)
+  42 0024 0E94 0000 		call Timebase_Timer_Await_SubSeconds
+  43               	.LM8:
+  44 0028 84E0      		ldi r24,lo8(4)
+  45 002a 90E0      		ldi r25,hi8(4)
+  46 002c 0E94 0000 		call Iron_Set_Max_PWM_Div_Fact
+  47               	.LBB18:
+  48               	.LBB19:
+  49               	.LBB20:
+  50               	.LBB21:
+  51               	.LM9:
+  52 0030 08E9      		ldi r16,lo8(15000)
+  53 0032 1AE3      		ldi r17,hi8(15000)
+  54               	.LBE21:
+  55               	.LBE20:
+  56               	.LBE19:
+  57               	.LBE18:
+  58               	.LBB25:
+  59               	.LBB26:
+  60               	.LBB27:
+  61               	.LBB28:
+  62 0034 C8E2      		ldi r28,lo8(9000)
+  63 0036 D3E2      		ldi r29,hi8(9000)
+  64               	.L2:
+  65               	.LBE28:
+  66               	.LBE27:
+  67               	.LBE26:
+  68               	.LBE25:
+  69               	.LM10:
+  70 0038 85E0      		ldi r24,lo8(5)
+  71 003a 90E0      		ldi r25,hi8(5)
+  72 003c 0E94 0000 		call Timebase_Timer_Await_SubSeconds
+  73               	.LM11:
+  74 0040 0E94 0000 		call Iron_Heater_Off
+  75               	.LBB32:
+  76               	.LBB24:
+  77               	.LBB23:
+  78               	.LBB22:
+  79               	.LM12:
+  80 0044 C801      		movw r24,r16
+  81               	.LVL0:
+  82               	/* #APP */
+  83               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+  84 0046 0197      		1: sbiw r24,1
+  85 0048 01F4      		brne 1b
+  86               	 ;  0 "" 2
+  87               	/* #NOAPP */
+  88               	.LBE22:
+  89               	.LBE23:
+  90               	.LBE24:
+  91               	.LBE32:
+  92               	.LM13:
+  93 004a 0E94 0000 		call ADC_Read_Temperature
+  94               	.LVL1:
+  95               	.LM14:
+  96 004e 8AEF      		ldi r24,lo8(250)
+  97 0050 90E0      		ldi r25,hi8(250)
+  98 0052 0E94 0000 		call Iron_Heater_On
+  99               	.LBB33:
+ 100               	.LBB31:
+ 101               	.LBB30:
+ 102               	.LBB29:
+ 103               	.LM15:
+ 104 0056 CE01      		movw r24,r28
+ 105               	.LVL2:
+ 106               	/* #APP */
+ 107               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 108 0058 0197      		1: sbiw r24,1
+ 109 005a 01F4      		brne 1b
+ 110               	 ;  0 "" 2
+ 111               	/* #NOAPP */
+ 112               	.LBE29:
+ 113               	.LBE30:
+ 114               	.LBE31:
+ 115               	.LBE33:
+ 116               	.LM16:
+ 117 005c 0E94 0000 		call Debug_Print_PID_SetPoint
+ 118               	.LVL3:
+ 119               	.LM17:
+ 120 0060 0E94 0000 		call Debug_Print_Current_Temperature
+ 121               	.LM18:
+ 122 0064 0E94 0000 		call Debug_Print_Power_Draw
+ 123               	.LM19:
+ 124 0068 0E94 0000 		call UART_Transmit_New_Line
+ 125 006c 00C0      		rjmp .L2
+ 126               	.LFE6:
+ 152               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:2      *ABS*:0000003f __SREG__
-C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:3      *ABS*:0000003e __SP_H__
-C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:4      *ABS*:0000003d __SP_L__
-C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:5      *ABS*:00000034 __CCP__
-C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:18     .text:00000000 main
+C:\Users\WALTON\AppData\Local\Temp/cc9IWfk8.s:2      *ABS*:0000003f __SREG__
+C:\Users\WALTON\AppData\Local\Temp/cc9IWfk8.s:3      *ABS*:0000003e __SP_H__
+C:\Users\WALTON\AppData\Local\Temp/cc9IWfk8.s:4      *ABS*:0000003d __SP_L__
+C:\Users\WALTON\AppData\Local\Temp/cc9IWfk8.s:5      *ABS*:00000034 __CCP__
+C:\Users\WALTON\AppData\Local\Temp/cc9IWfk8.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\WALTON\AppData\Local\Temp/cc9IWfk8.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\WALTON\AppData\Local\Temp/cc9IWfk8.s:18     .text:00000000 main
 
 UNDEFINED SYMBOLS
 Timebase_Init
@@ -187,15 +137,7 @@ Timebase_Timer_Await_SubSeconds
 Iron_Set_Max_PWM_Div_Fact
 Iron_Heater_Off
 ADC_Read_Temperature
-ADC_Set_Temperature_Factor
-PID_Set_Constants
-PID_Set_Max_IError
-ADC_Set_Max_Power
-PID_Set_SetPoint
-ADC_Get_Temperature
-PID_Set_ProcessValue
-PID_Execute_Routine
-Iron_Heater_Control
+Iron_Heater_On
 Debug_Print_PID_SetPoint
 Debug_Print_Current_Temperature
 Debug_Print_Power_Draw

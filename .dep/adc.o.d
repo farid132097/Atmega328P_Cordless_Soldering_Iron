@@ -1,1 +1,3 @@
-adc.o: adc.c
+adc.o: adc.c lpf.h
+
+lpf.h:

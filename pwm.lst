@@ -6,160 +6,363 @@
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
   15               	.Ltext0:
-  16               	.global	Iron_Heater_On
-  18               	Iron_Heater_On:
+  16               	.global	PWM_Struct_Init
+  18               	PWM_Struct_Init:
   19               	.LFB2:
   20               	.LM1:
-  21               	.LVL0:
-  22               	/* prologue: function */
-  23               	/* frame size = 0 */
-  24 0000 9C01      		movw r18,r24
-  25               	.LM2:
-  26 0002 8091 0000 		lds r24,heater
-  27               	.LVL1:
-  28 0006 8823      		tst r24
-  29 0008 01F4      		brne .L4
-  30 000a 2115      		cp r18,__zero_reg__
-  31 000c 3105      		cpc r19,__zero_reg__
-  32 000e 01F0      		breq .L4
-  33               	.LM3:
-  34 0010 3093 0000 		sts (heater+5)+1,r19
-  35 0014 2093 0000 		sts heater+5,r18
-  36 0018 82E0      		ldi r24,hi8(600)
-  37 001a 2835      		cpi r18,lo8(600)
-  38 001c 3807      		cpc r19,r24
-  39 001e 00F0      		brlo .L3
-  40 0020 27E5      		ldi r18,lo8(599)
-  41 0022 32E0      		ldi r19,hi8(599)
-  42               	.LVL2:
-  43               	.L3:
-  44               	.LM4:
-  45 0024 3093 8900 		sts (136)+1,r19
-  46 0028 2093 8800 		sts 136,r18
-  47               	.LM5:
-  48 002c 8091 8000 		lds r24,128
-  49 0030 8068      		ori r24,lo8(-128)
-  50 0032 8093 8000 		sts 128,r24
-  51               	.LM6:
-  52 0036 3093 0000 		sts (heater+3)+1,r19
-  53 003a 2093 0000 		sts heater+3,r18
-  54               	.LM7:
-  55 003e 81E0      		ldi r24,lo8(1)
-  56 0040 8093 0000 		sts heater,r24
-  57               	.L4:
-  58 0044 0895      		ret
-  59               	.LFE2:
-  61               	.global	Iron_Heater_Off
-  63               	Iron_Heater_Off:
-  64               	.LFB3:
-  65               	.LM8:
-  66               	/* prologue: function */
-  67               	/* frame size = 0 */
-  68               	.LM9:
-  69 0046 8091 0000 		lds r24,heater
-  70 004a 8130      		cpi r24,lo8(1)
-  71 004c 01F4      		brne .L7
-  72               	.LM10:
-  73 004e 81E0      		ldi r24,lo8(1)
-  74 0050 90E0      		ldi r25,hi8(1)
-  75 0052 9093 8900 		sts (136)+1,r25
-  76 0056 8093 8800 		sts 136,r24
-  77               	.LM11:
-  78 005a 1092 0000 		sts (heater+3)+1,__zero_reg__
-  79 005e 1092 0000 		sts heater+3,__zero_reg__
-  80               	.LM12:
-  81 0062 1092 0000 		sts heater,__zero_reg__
-  82               	.LM13:
-  83 0066 8091 8000 		lds r24,128
-  84 006a 8F77      		andi r24,lo8(127)
-  85 006c 8093 8000 		sts 128,r24
-  86               	.L7:
-  87 0070 0895      		ret
-  88               	.LFE3:
-  90               	.global	Get_Raw_PWM_Input
-  92               	Get_Raw_PWM_Input:
-  93               	.LFB4:
-  94               	.LM14:
-  95               	/* prologue: function */
-  96               	/* frame size = 0 */
-  97               	.LM15:
-  98 0072 8091 0000 		lds r24,heater+5
-  99 0076 9091 0000 		lds r25,heater+6
- 100               	/* epilogue start */
- 101 007a 0895      		ret
- 102               	.LFE4:
- 104               	.global	Get_Current_PWM
- 106               	Get_Current_PWM:
- 107               	.LFB5:
- 108               	.LM16:
- 109               	/* prologue: function */
- 110               	/* frame size = 0 */
- 111               	.LM17:
- 112 007c 8091 0000 		lds r24,heater+3
- 113 0080 9091 0000 		lds r25,heater+4
- 114               	/* epilogue start */
- 115 0084 0895      		ret
- 116               	.LFE5:
- 118               	.global	PWM_Init
- 120               	PWM_Init:
- 121               	.LFB6:
- 122               	.LM18:
- 123               	/* prologue: function */
- 124               	/* frame size = 0 */
- 125               	.LM19:
- 126 0086 219A      		sbi 36-32,1
- 127               	.LM20:
- 128 0088 2998      		cbi 37-32,1
- 129               	.LM21:
- 130 008a E0E8      		ldi r30,lo8(128)
- 131 008c F0E0      		ldi r31,hi8(128)
- 132 008e 82E8      		ldi r24,lo8(-126)
- 133 0090 8083      		st Z,r24
- 134               	.LM22:
- 135 0092 89E1      		ldi r24,lo8(25)
- 136 0094 8093 8100 		sts 129,r24
- 137               	.LM23:
- 138 0098 28E5      		ldi r18,lo8(600)
- 139 009a 32E0      		ldi r19,hi8(600)
- 140 009c 3093 8700 		sts (134)+1,r19
- 141 00a0 2093 8600 		sts 134,r18
- 142               	.LM24:
- 143 00a4 81E0      		ldi r24,lo8(1)
- 144 00a6 90E0      		ldi r25,hi8(1)
- 145 00a8 9093 8900 		sts (136)+1,r25
- 146 00ac 8093 8800 		sts 136,r24
- 147               	.LM25:
- 148 00b0 8081      		ld r24,Z
- 149 00b2 8F77      		andi r24,lo8(127)
- 150 00b4 8083      		st Z,r24
- 151               	.LM26:
- 152 00b6 3093 0000 		sts (heater+1)+1,r19
- 153 00ba 2093 0000 		sts heater+1,r18
- 154               	.LM27:
- 155 00be 1092 0000 		sts (heater+5)+1,__zero_reg__
- 156 00c2 1092 0000 		sts heater+5,__zero_reg__
- 157               	.LM28:
- 158 00c6 0E94 0000 		call Iron_Heater_Off
- 159               	/* epilogue start */
- 160               	.LM29:
- 161 00ca 0895      		ret
- 162               	.LFE6:
- 164               		.comm heater,7,1
- 221               	.Letext0:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 80E0      		ldi r24,lo8(HEATER_type)
+  25 0002 90E0      		ldi r25,hi8(HEATER_type)
+  26 0004 9093 0000 		sts (HEATER)+1,r25
+  27 0008 8093 0000 		sts HEATER,r24
+  28               	.LM3:
+  29 000c 87E5      		ldi r24,lo8(599)
+  30 000e 92E0      		ldi r25,hi8(599)
+  31 0010 9093 0000 		sts (HEATER_type+3)+1,r25
+  32 0014 8093 0000 		sts HEATER_type+3,r24
+  33               	.LM4:
+  34 0018 88E5      		ldi r24,lo8(600)
+  35 001a 92E0      		ldi r25,hi8(600)
+  36 001c 9093 0000 		sts (HEATER_type+1)+1,r25
+  37 0020 8093 0000 		sts HEATER_type+1,r24
+  38               	.LM5:
+  39 0024 1092 0000 		sts (HEATER_type+5)+1,__zero_reg__
+  40 0028 1092 0000 		sts HEATER_type+5,__zero_reg__
+  41               	.LM6:
+  42 002c 1092 0000 		sts HEATER_type,__zero_reg__
+  43               	/* epilogue start */
+  44               	.LM7:
+  45 0030 0895      		ret
+  46               	.LFE2:
+  48               	.global	PWM_Reg_Init
+  50               	PWM_Reg_Init:
+  51               	.LFB3:
+  52               	.LM8:
+  53               	/* prologue: function */
+  54               	/* frame size = 0 */
+  55               	.LM9:
+  56 0032 219A      		sbi 36-32,1
+  57               	.LM10:
+  58 0034 2998      		cbi 37-32,1
+  59               	.LM11:
+  60 0036 E0E8      		ldi r30,lo8(128)
+  61 0038 F0E0      		ldi r31,hi8(128)
+  62 003a 82E8      		ldi r24,lo8(-126)
+  63 003c 8083      		st Z,r24
+  64               	.LM12:
+  65 003e 89E1      		ldi r24,lo8(25)
+  66 0040 8093 8100 		sts 129,r24
+  67               	.LM13:
+  68 0044 88E5      		ldi r24,lo8(600)
+  69 0046 92E0      		ldi r25,hi8(600)
+  70 0048 9093 8700 		sts (134)+1,r25
+  71 004c 8093 8600 		sts 134,r24
+  72               	.LM14:
+  73 0050 1092 8900 		sts (136)+1,__zero_reg__
+  74 0054 1092 8800 		sts 136,__zero_reg__
+  75               	.LM15:
+  76 0058 8081      		ld r24,Z
+  77 005a 8F77      		andi r24,lo8(127)
+  78 005c 8083      		st Z,r24
+  79               	/* epilogue start */
+  80               	.LM16:
+  81 005e 0895      		ret
+  82               	.LFE3:
+  84               	.global	Iron_Heater_On
+  86               	Iron_Heater_On:
+  87               	.LFB4:
+  88               	.LM17:
+  89               	.LVL0:
+  90               	/* prologue: function */
+  91               	/* frame size = 0 */
+  92 0060 9C01      		movw r18,r24
+  93               	.LM18:
+  94 0062 E091 0000 		lds r30,HEATER
+  95 0066 F091 0000 		lds r31,(HEATER)+1
+  96 006a 8081      		ld r24,Z
+  97               	.LVL1:
+  98 006c 8823      		tst r24
+  99 006e 01F4      		brne .L8
+ 100 0070 2115      		cp r18,__zero_reg__
+ 101 0072 3105      		cpc r19,__zero_reg__
+ 102 0074 01F0      		breq .L8
+ 103 0076 4381      		ldd r20,Z+3
+ 104 0078 5481      		ldd r21,Z+4
+ 105 007a 4217      		cp r20,r18
+ 106 007c 5307      		cpc r21,r19
+ 107 007e 00F4      		brsh .L7
+ 108 0080 9A01      		movw r18,r20
+ 109               	.LVL2:
+ 110               	.L7:
+ 111               	.LM19:
+ 112 0082 3093 8900 		sts (136)+1,r19
+ 113 0086 2093 8800 		sts 136,r18
+ 114               	.LM20:
+ 115 008a 8091 8000 		lds r24,128
+ 116 008e 8068      		ori r24,lo8(-128)
+ 117 0090 8093 8000 		sts 128,r24
+ 118               	.LM21:
+ 119 0094 3683      		std Z+6,r19
+ 120 0096 2583      		std Z+5,r18
+ 121               	.LM22:
+ 122 0098 81E0      		ldi r24,lo8(1)
+ 123 009a 8083      		st Z,r24
+ 124               	.L8:
+ 125 009c 0895      		ret
+ 126               	.LFE4:
+ 128               	.global	Iron_Heater_Off
+ 130               	Iron_Heater_Off:
+ 131               	.LFB5:
+ 132               	.LM23:
+ 133               	/* prologue: function */
+ 134               	/* frame size = 0 */
+ 135               	.LM24:
+ 136 009e E091 0000 		lds r30,HEATER
+ 137 00a2 F091 0000 		lds r31,(HEATER)+1
+ 138 00a6 8081      		ld r24,Z
+ 139 00a8 8130      		cpi r24,lo8(1)
+ 140 00aa 01F4      		brne .L11
+ 141               	.LM25:
+ 142 00ac 8091 8000 		lds r24,128
+ 143 00b0 8F77      		andi r24,lo8(127)
+ 144 00b2 8093 8000 		sts 128,r24
+ 145               	.LM26:
+ 146 00b6 1092 8900 		sts (136)+1,__zero_reg__
+ 147 00ba 1092 8800 		sts 136,__zero_reg__
+ 148               	.LM27:
+ 149 00be 1682      		std Z+6,__zero_reg__
+ 150 00c0 1582      		std Z+5,__zero_reg__
+ 151               	.LM28:
+ 152 00c2 1082      		st Z,__zero_reg__
+ 153               	.L11:
+ 154 00c4 0895      		ret
+ 155               	.LFE5:
+ 157               	.global	Iron_Set_Max_PWM
+ 159               	Iron_Set_Max_PWM:
+ 160               	.LFB7:
+ 161               	.LM29:
+ 162               	.LVL3:
+ 163               	/* prologue: function */
+ 164               	/* frame size = 0 */
+ 165               	.LM30:
+ 166 00c6 E091 0000 		lds r30,HEATER
+ 167 00ca F091 0000 		lds r31,(HEATER)+1
+ 168 00ce 9483      		std Z+4,r25
+ 169 00d0 8383      		std Z+3,r24
+ 170               	/* epilogue start */
+ 171               	.LM31:
+ 172 00d2 0895      		ret
+ 173               	.LFE7:
+ 175               	.global	Iron_Set_Max_PWM_Div_Fact
+ 177               	Iron_Set_Max_PWM_Div_Fact:
+ 178               	.LFB8:
+ 179               	.LM32:
+ 180               	.LVL4:
+ 181               	/* prologue: function */
+ 182               	/* frame size = 0 */
+ 183 00d4 BC01      		movw r22,r24
+ 184               	.LM33:
+ 185 00d6 E091 0000 		lds r30,HEATER
+ 186 00da F091 0000 		lds r31,(HEATER)+1
+ 187 00de 87E5      		ldi r24,lo8(599)
+ 188 00e0 92E0      		ldi r25,hi8(599)
+ 189               	.LVL5:
+ 190 00e2 0E94 0000 		call __udivmodhi4
+ 191               	.LVL6:
+ 192 00e6 7483      		std Z+4,r23
+ 193 00e8 6383      		std Z+3,r22
+ 194               	/* epilogue start */
+ 195               	.LM34:
+ 196 00ea 0895      		ret
+ 197               	.LFE8:
+ 199               	.global	Iron_Set_Max_PWM_Full
+ 201               	Iron_Set_Max_PWM_Full:
+ 202               	.LFB9:
+ 203               	.LM35:
+ 204               	/* prologue: function */
+ 205               	/* frame size = 0 */
+ 206               	.LM36:
+ 207 00ec E091 0000 		lds r30,HEATER
+ 208 00f0 F091 0000 		lds r31,(HEATER)+1
+ 209 00f4 87E5      		ldi r24,lo8(599)
+ 210 00f6 92E0      		ldi r25,hi8(599)
+ 211 00f8 9483      		std Z+4,r25
+ 212 00fa 8383      		std Z+3,r24
+ 213               	/* epilogue start */
+ 214               	.LM37:
+ 215 00fc 0895      		ret
+ 216               	.LFE9:
+ 218               	.global	Iron_Set_Max_PWM_Half
+ 220               	Iron_Set_Max_PWM_Half:
+ 221               	.LFB10:
+ 222               	.LM38:
+ 223               	/* prologue: function */
+ 224               	/* frame size = 0 */
+ 225               	.LM39:
+ 226 00fe E091 0000 		lds r30,HEATER
+ 227 0102 F091 0000 		lds r31,(HEATER)+1
+ 228 0106 8BE2      		ldi r24,lo8(299)
+ 229 0108 91E0      		ldi r25,hi8(299)
+ 230 010a 9483      		std Z+4,r25
+ 231 010c 8383      		std Z+3,r24
+ 232               	/* epilogue start */
+ 233               	.LM40:
+ 234 010e 0895      		ret
+ 235               	.LFE10:
+ 237               	.global	Iron_Set_Max_PWM_Quarter
+ 239               	Iron_Set_Max_PWM_Quarter:
+ 240               	.LFB11:
+ 241               	.LM41:
+ 242               	/* prologue: function */
+ 243               	/* frame size = 0 */
+ 244               	.LM42:
+ 245 0110 E091 0000 		lds r30,HEATER
+ 246 0114 F091 0000 		lds r31,(HEATER)+1
+ 247 0118 85E9      		ldi r24,lo8(149)
+ 248 011a 90E0      		ldi r25,hi8(149)
+ 249 011c 9483      		std Z+4,r25
+ 250 011e 8383      		std Z+3,r24
+ 251               	/* epilogue start */
+ 252               	.LM43:
+ 253 0120 0895      		ret
+ 254               	.LFE11:
+ 256               	.global	Iron_Set_Max_PWM_One_Eighth
+ 258               	Iron_Set_Max_PWM_One_Eighth:
+ 259               	.LFB12:
+ 260               	.LM44:
+ 261               	/* prologue: function */
+ 262               	/* frame size = 0 */
+ 263               	.LM45:
+ 264 0122 E091 0000 		lds r30,HEATER
+ 265 0126 F091 0000 		lds r31,(HEATER)+1
+ 266 012a 8AE4      		ldi r24,lo8(74)
+ 267 012c 90E0      		ldi r25,hi8(74)
+ 268 012e 9483      		std Z+4,r25
+ 269 0130 8383      		std Z+3,r24
+ 270               	/* epilogue start */
+ 271               	.LM46:
+ 272 0132 0895      		ret
+ 273               	.LFE12:
+ 275               	.global	Iron_Get_PWM
+ 277               	Iron_Get_PWM:
+ 278               	.LFB13:
+ 279               	.LM47:
+ 280               	/* prologue: function */
+ 281               	/* frame size = 0 */
+ 282               	.LM48:
+ 283 0134 E091 0000 		lds r30,HEATER
+ 284 0138 F091 0000 		lds r31,(HEATER)+1
+ 285               	.LM49:
+ 286 013c 8581      		ldd r24,Z+5
+ 287 013e 9681      		ldd r25,Z+6
+ 288               	/* epilogue start */
+ 289 0140 0895      		ret
+ 290               	.LFE13:
+ 292               	.global	Iron_Get_Max_PWM
+ 294               	Iron_Get_Max_PWM:
+ 295               	.LFB14:
+ 296               	.LM50:
+ 297               	/* prologue: function */
+ 298               	/* frame size = 0 */
+ 299               	.LM51:
+ 300 0142 E091 0000 		lds r30,HEATER
+ 301 0146 F091 0000 		lds r31,(HEATER)+1
+ 302               	.LM52:
+ 303 014a 8381      		ldd r24,Z+3
+ 304 014c 9481      		ldd r25,Z+4
+ 305               	/* epilogue start */
+ 306 014e 0895      		ret
+ 307               	.LFE14:
+ 309               	.global	PWM_Init
+ 311               	PWM_Init:
+ 312               	.LFB15:
+ 313               	.LM53:
+ 314               	/* prologue: function */
+ 315               	/* frame size = 0 */
+ 316               	.LBB4:
+ 317               	.LBB5:
+ 318               	.LM54:
+ 319 0150 80E0      		ldi r24,lo8(HEATER_type)
+ 320 0152 90E0      		ldi r25,hi8(HEATER_type)
+ 321 0154 9093 0000 		sts (HEATER)+1,r25
+ 322 0158 8093 0000 		sts HEATER,r24
+ 323               	.LM55:
+ 324 015c 87E5      		ldi r24,lo8(599)
+ 325 015e 92E0      		ldi r25,hi8(599)
+ 326 0160 9093 0000 		sts (HEATER_type+3)+1,r25
+ 327 0164 8093 0000 		sts HEATER_type+3,r24
+ 328               	.LM56:
+ 329 0168 88E5      		ldi r24,lo8(600)
+ 330 016a 92E0      		ldi r25,hi8(600)
+ 331 016c 9093 0000 		sts (HEATER_type+1)+1,r25
+ 332 0170 8093 0000 		sts HEATER_type+1,r24
+ 333               	.LM57:
+ 334 0174 1092 0000 		sts (HEATER_type+5)+1,__zero_reg__
+ 335 0178 1092 0000 		sts HEATER_type+5,__zero_reg__
+ 336               	.LM58:
+ 337 017c 1092 0000 		sts HEATER_type,__zero_reg__
+ 338               	.LBE5:
+ 339               	.LBE4:
+ 340               	.LM59:
+ 341 0180 0E94 0000 		call PWM_Reg_Init
+ 342               	/* epilogue start */
+ 343               	.LM60:
+ 344 0184 0895      		ret
+ 345               	.LFE15:
+ 347               	.global	Iron_Heater_Control
+ 349               	Iron_Heater_Control:
+ 350               	.LFB6:
+ 351               	.LM61:
+ 352               	/* prologue: function */
+ 353               	/* frame size = 0 */
+ 354               	.LM62:
+ 355 0186 0E94 0000 		call ADC_Get_Temperature
+ 356 018a 8D57      		subi r24,lo8(381)
+ 357 018c 9140      		sbci r25,hi8(381)
+ 358 018e 00F0      		brlo .L31
+ 359               	.LM63:
+ 360 0190 0E94 0000 		call Iron_Heater_Off
+ 361 0194 0895      		ret
+ 362               	.L31:
+ 363               	.LM64:
+ 364 0196 0E94 0000 		call PID_Get_Output_NonNegative
+ 365 019a DC01      		movw r26,r24
+ 366 019c CB01      		movw r24,r22
+ 367 019e 0E94 0000 		call Iron_Heater_On
+ 368 01a2 0895      		ret
+ 369               	.LFE6:
+ 371               		.comm HEATER_type,7,1
+ 372               		.comm HEATER,2,1
+ 501               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 pwm.c
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:2      *ABS*:0000003f __SREG__
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:3      *ABS*:0000003e __SP_H__
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:4      *ABS*:0000003d __SP_L__
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:5      *ABS*:00000034 __CCP__
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:18     .text:00000000 Iron_Heater_On
-                            *COM*:00000007 heater
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:63     .text:00000046 Iron_Heater_Off
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:92     .text:00000072 Get_Raw_PWM_Input
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:106    .text:0000007c Get_Current_PWM
-C:\Users\EED-R&I\AppData\Local\Temp/ccOmjF6p.s:120    .text:00000086 PWM_Init
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:2      *ABS*:0000003f __SREG__
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:3      *ABS*:0000003e __SP_H__
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:4      *ABS*:0000003d __SP_L__
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:5      *ABS*:00000034 __CCP__
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:18     .text:00000000 PWM_Struct_Init
+                            *COM*:00000007 HEATER_type
+                            *COM*:00000002 HEATER
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:50     .text:00000032 PWM_Reg_Init
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:86     .text:00000060 Iron_Heater_On
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:130    .text:0000009e Iron_Heater_Off
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:159    .text:000000c6 Iron_Set_Max_PWM
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:177    .text:000000d4 Iron_Set_Max_PWM_Div_Fact
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:201    .text:000000ec Iron_Set_Max_PWM_Full
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:220    .text:000000fe Iron_Set_Max_PWM_Half
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:239    .text:00000110 Iron_Set_Max_PWM_Quarter
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:258    .text:00000122 Iron_Set_Max_PWM_One_Eighth
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:277    .text:00000134 Iron_Get_PWM
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:294    .text:00000142 Iron_Get_Max_PWM
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:311    .text:00000150 PWM_Init
+C:\Users\WALTON\AppData\Local\Temp/ccKhIn1B.s:349    .text:00000186 Iron_Heater_Control
 
 UNDEFINED SYMBOLS
+__udivmodhi4
+ADC_Get_Temperature
+PID_Get_Output_NonNegative
 __do_clear_bss

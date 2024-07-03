@@ -6,189 +6,197 @@
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
   15               	.Ltext0:
-  16               		.data
-  17               	.LC0:
-  18 0000 2C00      		.string	","
-  19               	.LC1:
-  20 0002 0D0A 00   		.string	"\r\n"
-  21               		.text
-  22               	.global	main
-  24               	main:
-  25               	.LFB6:
-  26               	.LM1:
-  27 0000 AF92      		push r10
-  28 0002 BF92      		push r11
-  29 0004 CF92      		push r12
-  30 0006 DF92      		push r13
-  31 0008 EF92      		push r14
-  32 000a FF92      		push r15
-  33 000c 0F93      		push r16
-  34 000e 1F93      		push r17
-  35 0010 CF93      		push r28
-  36 0012 DF93      		push r29
-  37               	/* prologue: function */
-  38               	/* frame size = 0 */
-  39               	.LM2:
-  40 0014 84E6      		ldi r24,lo8(100)
-  41 0016 90E0      		ldi r25,hi8(100)
-  42 0018 0E94 0000 		call Timebase_Init
-  43               	.LM3:
-  44 001c 60E0      		ldi r22,lo8(38400)
-  45 001e 76E9      		ldi r23,hi8(38400)
-  46 0020 80E0      		ldi r24,hlo8(38400)
-  47 0022 90E0      		ldi r25,hhi8(38400)
-  48 0024 0E94 0000 		call UART_Init
-  49               	.LM4:
-  50 0028 0E94 0000 		call ADC_Init
-  51               	.LM5:
-  52 002c 0E94 0000 		call PWM_Init
-  53 0030 C0E0      		ldi r28,lo8(0)
-  54 0032 D0E0      		ldi r29,hi8(0)
-  55               	.LVL0:
-  56               	.LBB19:
-  57               	.LBB20:
-  58               	.LBB21:
-  59               	.LBB22:
-  60               	.LBB23:
-  61               	.LM6:
-  62 0034 90E6      		ldi r25,lo8(-5536)
-  63 0036 A92E      		mov r10,r25
-  64 0038 9AEE      		ldi r25,hi8(-5536)
-  65 003a B92E      		mov r11,r25
-  66               	.LBE23:
-  67               	.LBE22:
-  68               	.LBE21:
-  69               	.LBE20:
-  70               	.LBB27:
-  71               	.LBB28:
-  72               	.LBB29:
-  73               	.LBB30:
-  74 003c 88E9      		ldi r24,lo8(15000)
-  75 003e C82E      		mov r12,r24
-  76 0040 8AE3      		ldi r24,hi8(15000)
-  77 0042 D82E      		mov r13,r24
-  78               	.LVL1:
-  79               	.L3:
-  80               	.LBE30:
-  81               	.LBE29:
-  82               	.LBE28:
-  83               	.LBE27:
-  84               	.LM7:
-  85 0044 0E94 0000 		call UART_Last_Received_Byte
-  86 0048 8F36      		cpi r24,lo8(111)
-  87 004a 01F4      		brne .L2
-  88 004c C450      		subi r28,lo8(260)
-  89 004e D140      		sbci r29,hi8(260)
-  90 0050 00F4      		brsh .L2
-  91               	.LM8:
-  92 0052 84EF      		ldi r24,lo8(500)
-  93 0054 91E0      		ldi r25,hi8(500)
-  94 0056 0E94 0000 		call Iron_Heater_On
-  95               	.L2:
-  96               	.LBB34:
-  97               	.LBB26:
-  98               	.LBB25:
-  99               	.LBB24:
- 100               	.LM9:
- 101 005a C501      		movw r24,r10
- 102               	.LVL2:
- 103               	/* #APP */
- 104               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
- 105 005c 0197      		1: sbiw r24,1
- 106 005e 01F4      		brne 1b
- 107               	 ;  0 "" 2
- 108               	/* #NOAPP */
- 109               	.LBE24:
- 110               	.LBE25:
- 111               	.LBE26:
- 112               	.LBE34:
- 113               	.LM10:
- 114 0060 0E94 0000 		call ADC_Read_Current
- 115               	.LVL3:
- 116 0064 7C01      		movw r14,r24
- 117               	.LM11:
- 118 0066 0E94 0000 		call Iron_Heater_Off
- 119               	.LBB35:
- 120               	.LBB33:
- 121               	.LBB32:
- 122               	.LBB31:
- 123               	.LM12:
- 124 006a C601      		movw r24,r12
- 125               	.LVL4:
- 126               	/* #APP */
- 127               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
- 128 006c 0197      		1: sbiw r24,1
- 129 006e 01F4      		brne 1b
- 130               	 ;  0 "" 2
- 131               	/* #NOAPP */
- 132               	.LBE31:
- 133               	.LBE32:
- 134               	.LBE33:
- 135               	.LBE35:
- 136               	.LM13:
- 137 0070 80E5      		ldi r24,lo8(80)
- 138               	.LVL5:
- 139 0072 0E94 0000 		call ADC_Read_Temperature
- 140 0076 EC01      		movw r28,r24
- 141               	.LM14:
- 142 0078 0E94 0000 		call ADC_Read_Input_Voltage
- 143               	.LM15:
- 144 007c 90E0      		ldi r25,lo8(0)
- 145 007e A0E0      		ldi r26,lo8(0)
- 146 0080 B0E0      		ldi r27,hi8(0)
- 147 0082 BC01      		movw r22,r24
- 148 0084 CD01      		movw r24,r26
- 149 0086 0E94 0000 		call UART_Transmit_Number
- 150               	.LM16:
- 151 008a 80E0      		ldi r24,lo8(.LC0)
- 152 008c 90E0      		ldi r25,hi8(.LC0)
- 153 008e 0E94 0000 		call UART_Transmit_Text
- 154               	.LM17:
- 155 0092 00E0      		ldi r16,lo8(0)
- 156 0094 10E0      		ldi r17,hi8(0)
- 157 0096 C801      		movw r24,r16
- 158 0098 B701      		movw r22,r14
- 159 009a 0E94 0000 		call UART_Transmit_Number
- 160               	.LM18:
- 161 009e 80E0      		ldi r24,lo8(.LC0)
- 162 00a0 90E0      		ldi r25,hi8(.LC0)
- 163 00a2 0E94 0000 		call UART_Transmit_Text
- 164               	.LM19:
- 165 00a6 BE01      		movw r22,r28
- 166 00a8 80E0      		ldi r24,lo8(0)
- 167 00aa 90E0      		ldi r25,hi8(0)
- 168               	.LVL6:
- 169 00ac 0E94 0000 		call UART_Transmit_Number
- 170               	.LVL7:
- 171               	.LM20:
- 172 00b0 80E0      		ldi r24,lo8(.LC1)
- 173 00b2 90E0      		ldi r25,hi8(.LC1)
- 174 00b4 0E94 0000 		call UART_Transmit_Text
- 175 00b8 00C0      		rjmp .L3
- 176               	.LBE19:
- 177               	.LFE6:
- 203               	.Letext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB6:
+  20               	.LM1:
+  21 0000 CF92      		push r12
+  22 0002 DF92      		push r13
+  23 0004 EF92      		push r14
+  24 0006 FF92      		push r15
+  25 0008 0F93      		push r16
+  26 000a 1F93      		push r17
+  27 000c CF93      		push r28
+  28 000e DF93      		push r29
+  29               	/* prologue: function */
+  30               	/* frame size = 0 */
+  31               	.LM2:
+  32 0010 82E3      		ldi r24,lo8(50)
+  33 0012 90E0      		ldi r25,hi8(50)
+  34 0014 0E94 0000 		call Timebase_Init
+  35               	.LM3:
+  36 0018 0E94 0000 		call PWM_Init
+  37               	.LM4:
+  38 001c 0E94 0000 		call ADC_Init
+  39               	.LM5:
+  40 0020 0E94 0000 		call PID_Init
+  41               	.LM6:
+  42 0024 0E94 0000 		call Debug_Init
+  43               	.LM7:
+  44 0028 82E0      		ldi r24,lo8(2)
+  45 002a 90E0      		ldi r25,hi8(2)
+  46 002c 0E94 0000 		call Timebase_Timer_Await_SubSeconds
+  47               	.LM8:
+  48 0030 82E0      		ldi r24,lo8(2)
+  49 0032 90E0      		ldi r25,hi8(2)
+  50 0034 0E94 0000 		call Iron_Set_Max_PWM_Div_Fact
+  51               	.LBB18:
+  52               	.LBB19:
+  53               	.LBB20:
+  54               	.LBB21:
+  55               	.LM9:
+  56 0038 F8E9      		ldi r31,lo8(15000)
+  57 003a CF2E      		mov r12,r31
+  58 003c FAE3      		ldi r31,hi8(15000)
+  59 003e DF2E      		mov r13,r31
+  60               	.LBE21:
+  61               	.LBE20:
+  62               	.LBE19:
+  63               	.LBE18:
+  64               	.LBB25:
+  65               	.LBB26:
+  66               	.LBB27:
+  67               	.LBB28:
+  68 0040 C8E2      		ldi r28,lo8(9000)
+  69 0042 D3E2      		ldi r29,hi8(9000)
+  70               	.L2:
+  71               	.LBE28:
+  72               	.LBE27:
+  73               	.LBE26:
+  74               	.LBE25:
+  75               	.LM10:
+  76 0044 85E0      		ldi r24,lo8(5)
+  77 0046 90E0      		ldi r25,hi8(5)
+  78 0048 0E94 0000 		call Timebase_Timer_Await_SubSeconds
+  79               	.LM11:
+  80 004c 0E94 0000 		call Iron_Heater_Off
+  81               	.LBB32:
+  82               	.LBB24:
+  83               	.LBB23:
+  84               	.LBB22:
+  85               	.LM12:
+  86 0050 C601      		movw r24,r12
+  87               	.LVL0:
+  88               	/* #APP */
+  89               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+  90 0052 0197      		1: sbiw r24,1
+  91 0054 01F4      		brne 1b
+  92               	 ;  0 "" 2
+  93               	/* #NOAPP */
+  94               	.LBE22:
+  95               	.LBE23:
+  96               	.LBE24:
+  97               	.LBE32:
+  98               	.LM13:
+  99 0056 0E94 0000 		call ADC_Read_Temperature
+ 100               	.LVL1:
+ 101               	.LM14:
+ 102 005a 80E5      		ldi r24,lo8(80)
+ 103 005c 90E0      		ldi r25,hi8(80)
+ 104 005e 0E94 0000 		call ADC_Set_Temperature_Factor
+ 105               	.LM15:
+ 106 0062 60E2      		ldi r22,lo8(800)
+ 107 0064 73E0      		ldi r23,hi8(800)
+ 108 0066 80E0      		ldi r24,hlo8(800)
+ 109 0068 90E0      		ldi r25,hhi8(800)
+ 110 006a 24E1      		ldi r18,lo8(20)
+ 111 006c 30E0      		ldi r19,hi8(20)
+ 112 006e 40E0      		ldi r20,hlo8(20)
+ 113 0070 50E0      		ldi r21,hhi8(20)
+ 114 0072 E4E1      		ldi r30,lo8(20)
+ 115 0074 EE2E      		mov r14,r30
+ 116 0076 F12C      		mov r15,__zero_reg__
+ 117 0078 012D      		mov r16,__zero_reg__
+ 118 007a 112D      		mov r17,__zero_reg__
+ 119 007c 0E94 0000 		call PID_Set_Constants
+ 120               	.LM16:
+ 121 0080 6AEF      		ldi r22,lo8(250)
+ 122 0082 70E0      		ldi r23,hi8(250)
+ 123 0084 80E0      		ldi r24,hlo8(250)
+ 124 0086 90E0      		ldi r25,hhi8(250)
+ 125 0088 0E94 0000 		call PID_Set_Max_IError
+ 126               	.LM17:
+ 127 008c 60EA      		ldi r22,lo8(36000)
+ 128 008e 7CE8      		ldi r23,hi8(36000)
+ 129 0090 80E0      		ldi r24,hlo8(36000)
+ 130 0092 90E0      		ldi r25,hhi8(36000)
+ 131 0094 0E94 0000 		call ADC_Set_Max_Power
+ 132               	.LM18:
+ 133 0098 68EC      		ldi r22,lo8(200)
+ 134 009a 70E0      		ldi r23,hi8(200)
+ 135 009c 80E0      		ldi r24,hlo8(200)
+ 136 009e 90E0      		ldi r25,hhi8(200)
+ 137 00a0 0E94 0000 		call PID_Set_SetPoint
+ 138               	.LM19:
+ 139 00a4 0E94 0000 		call ADC_Get_Temperature
+ 140 00a8 A0E0      		ldi r26,lo8(0)
+ 141 00aa B0E0      		ldi r27,hi8(0)
+ 142 00ac BC01      		movw r22,r24
+ 143 00ae CD01      		movw r24,r26
+ 144 00b0 0E94 0000 		call PID_Set_ProcessValue
+ 145               	.LM20:
+ 146 00b4 0E94 0000 		call PID_Execute_Routine
+ 147               	.LM21:
+ 148 00b8 0E94 0000 		call Iron_Heater_Control
+ 149               	.LBB33:
+ 150               	.LBB31:
+ 151               	.LBB30:
+ 152               	.LBB29:
+ 153               	.LM22:
+ 154 00bc CE01      		movw r24,r28
+ 155               	.LVL2:
+ 156               	/* #APP */
+ 157               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 158 00be 0197      		1: sbiw r24,1
+ 159 00c0 01F4      		brne 1b
+ 160               	 ;  0 "" 2
+ 161               	/* #NOAPP */
+ 162               	.LBE29:
+ 163               	.LBE30:
+ 164               	.LBE31:
+ 165               	.LBE33:
+ 166               	.LM23:
+ 167 00c2 0E94 0000 		call Debug_Print_PID_SetPoint
+ 168               	.LVL3:
+ 169               	.LM24:
+ 170 00c6 0E94 0000 		call Debug_Print_Current_Temperature
+ 171               	.LM25:
+ 172 00ca 0E94 0000 		call Debug_Print_Power_Draw
+ 173               	.LM26:
+ 174 00ce 0E94 0000 		call UART_Transmit_New_Line
+ 175 00d2 00C0      		rjmp .L2
+ 176               	.LFE6:
+ 202               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:2      *ABS*:0000003f __SREG__
-C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:3      *ABS*:0000003e __SP_H__
-C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:4      *ABS*:0000003d __SP_L__
-C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:5      *ABS*:00000034 __CCP__
-C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\EED-R&I\AppData\Local\Temp/cc7a8Kh0.s:24     .text:00000000 main
+C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:2      *ABS*:0000003f __SREG__
+C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:3      *ABS*:0000003e __SP_H__
+C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:4      *ABS*:0000003d __SP_L__
+C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:5      *ABS*:00000034 __CCP__
+C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\WALTON\AppData\Local\Temp/ccgGkHMm.s:18     .text:00000000 main
 
 UNDEFINED SYMBOLS
 Timebase_Init
-UART_Init
-ADC_Init
 PWM_Init
-UART_Last_Received_Byte
-Iron_Heater_On
-ADC_Read_Current
+ADC_Init
+PID_Init
+Debug_Init
+Timebase_Timer_Await_SubSeconds
+Iron_Set_Max_PWM_Div_Fact
 Iron_Heater_Off
 ADC_Read_Temperature
-ADC_Read_Input_Voltage
-UART_Transmit_Number
-UART_Transmit_Text
-__do_copy_data
+ADC_Set_Temperature_Factor
+PID_Set_Constants
+PID_Set_Max_IError
+ADC_Set_Max_Power
+PID_Set_SetPoint
+ADC_Get_Temperature
+PID_Set_ProcessValue
+PID_Execute_Routine
+Iron_Heater_Control
+Debug_Print_PID_SetPoint
+Debug_Print_Current_Temperature
+Debug_Print_Power_Draw
+UART_Transmit_New_Line

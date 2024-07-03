@@ -1,0 +1,3 @@
+
+
+#define  ABSOLUTE_MAX_TEMP 380

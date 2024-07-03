@@ -9,10 +9,12 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-//#define  TIMEBASE_UPCOUNTER    1
-//#define  TIMEBASE_DOWNCOUNTER  1
-#define  TIMEBASE_TOKEN_FUNCTIONS
+//#include "uart.h"
 
+#define  TIMEBASE_UPCOUNTER     1
+#define  TIMEBASE_DOWNCOUNTER   1
+#define  TIMEBASE_TOKEN_FUNCTIONS
+#define  TIMEBASE_TIME_WINDOW_CALCULATION
 
 typedef union {
   struct {
@@ -29,6 +31,11 @@ typedef struct timebase_time_t{
   volatile uint32_t           LastSample       ;
   volatile uint32_t           SubSeconds       ;
   volatile uint32_t           Seconds          ;
+  #ifdef TIMEBASE_TIME_WINDOW_CALCULATION
+  uint32_t                    StartTimeSeconds   ;
+  uint32_t                    StartTimeSubSeconds;
+  uint8_t                     Status             ;
+  #endif
 }timebase_time_t;
 
 typedef union {
@@ -72,7 +79,7 @@ typedef struct timebase_t{
   #ifdef TIMEBASE_TOKEN_FUNCTIONS
   volatile uint8_t       ActiveTokens                       ;
   #endif
-  
+    
   #ifdef TIMEBASE_UPCOUNTER
   timebase_upcounter_t   UpCounter[TIMEBASE_UPCOUNTER]      ;
   #endif
@@ -96,6 +103,12 @@ void Timebase_Struct_Init(void){
   Timebase->Time.SubSeconds = 0;
   Timebase->Time.Seconds = 0;
   Timebase->Time.LastSample = 0;
+  
+  #ifdef TIMEBASE_TIME_WINDOW_CALCULATION
+    Timebase->Time.StartTimeSeconds=0;
+	Timebase->Time.StartTimeSubSeconds=0;
+	Timebase->Time.Status=0;
+  #endif
   
   #ifdef TIMEBASE_TOKEN_FUNCTIONS
   Timebase->ActiveTokens = 0;
@@ -256,11 +269,73 @@ void Timebase_Timer_Delay_SubSeconds(uint16_t value){
   #endif
 }
 
+
+////////////////////////////
+void Timebase_Timer_Await_SubSeconds(uint16_t value){
+  /*UART_Transmit_Text("ESS: ");
+  UART_Transmit_Number(Timebase_Timer_Get_SubSeconds());
+  UART_Transmit_Text(" ELS: ");
+  UART_Transmit_Number(Timebase->Time.LastSample);
+  UART_Transmit_New_Line();*/
+  
+  while(Timebase_Timer_Get_SubSeconds()!=Timebase->Time.LastSample);
+  
+  Timebase->Time.LastSample = Timebase_Timer_Get_SubSeconds()+value;
+  if(Timebase->Time.LastSample >= Timebase->Config.UpdateRate){
+    Timebase->Time.LastSample -= Timebase->Config.UpdateRate;
+  }
+  
+  /*UART_Transmit_Text("LSS: ");
+  UART_Transmit_Number(Timebase_Timer_Get_SubSeconds());
+  UART_Transmit_Text(" LLS: ");
+  UART_Transmit_Number(Timebase->Time.LastSample);
+  UART_Transmit_New_Line();
+  UART_Transmit_New_Line();*/
+  
+}
+
+
 void Timebase_Timer_Delay_Seconds(uint16_t value){
   uint32_t temp = Timebase_Timer_Get_Seconds() + value;
   while(temp > Timebase_Timer_Get_SubSeconds());
 }
 
+
+void Timebase_Window_Timer_Reset(void){
+  Timebase->Time.StartTimeSeconds=0;
+  Timebase->Time.StartTimeSubSeconds=0;
+  Timebase->Time.Status=0;
+}
+
+void Timebase_Window_Timer_Start(void){
+  if(Timebase->Time.Status==0){
+    Timebase->Time.StartTimeSeconds=Timebase_Timer_Get_Seconds();
+    Timebase->Time.StartTimeSubSeconds=Timebase_Timer_Get_SubSeconds();
+    Timebase->Time.Status=1;
+  }
+}
+
+uint32_t Timebase_Window_Timer_Get_Interval(void){
+  if(Timebase->Time.Status){
+    uint32_t curr_s =Timebase_Timer_Get_Seconds();
+    uint32_t curr_ss=Timebase_Timer_Get_SubSeconds();
+	curr_s-=Timebase->Time.StartTimeSeconds;
+	curr_ss-=Timebase->Time.StartTimeSubSeconds;
+	curr_s*=Timebase->Config.UpdateRate;
+	curr_s+=curr_ss;
+	return curr_s;
+  }else{
+    return 0;
+  }
+}
+
+uint32_t Timebase_Window_Timer_Get_Interval_Reset(void){
+  uint32_t val=Timebase_Window_Timer_Get_Interval();
+  if(Timebase->Time.Status){
+    Timebase_Window_Timer_Reset();
+  }
+  return val;
+}
 
 
 

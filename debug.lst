@@ -1,0 +1,643 @@
+   1               		.file	"debug.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 2C00      		.string	","
+  19               		.text
+  20               	.global	Debug_Print_Seperation
+  22               	Debug_Print_Seperation:
+  23               	.LFB8:
+  24               	.LM1:
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27               	.LM2:
+  28 0000 80E0      		ldi r24,lo8(.LC0)
+  29 0002 90E0      		ldi r25,hi8(.LC0)
+  30 0004 0E94 0000 		call UART_Transmit_Text
+  31               	/* epilogue start */
+  32               	.LM3:
+  33 0008 0895      		ret
+  34               	.LFE8:
+  36               	.global	Debug_Print_Display_Temperature
+  38               	Debug_Print_Display_Temperature:
+  39               	.LFB32:
+  40               	.LM4:
+  41               	/* prologue: function */
+  42               	/* frame size = 0 */
+  43               	.LM5:
+  44 000a 0E94 0000 		call ADC_Get_Display_Temperature
+  45 000e A0E0      		ldi r26,lo8(0)
+  46 0010 B0E0      		ldi r27,hi8(0)
+  47 0012 BC01      		movw r22,r24
+  48 0014 CD01      		movw r24,r26
+  49 0016 0E94 0000 		call UART_Transmit_Number
+  50               	.LBB50:
+  51               	.LBB51:
+  52               	.LM6:
+  53 001a 80E0      		ldi r24,lo8(.LC0)
+  54 001c 90E0      		ldi r25,hi8(.LC0)
+  55 001e 0E94 0000 		call UART_Transmit_Text
+  56               	/* epilogue start */
+  57               	.LBE51:
+  58               	.LBE50:
+  59               	.LM7:
+  60 0022 0895      		ret
+  61               	.LFE32:
+  63               	.global	Debug_Print_Current_Temperature
+  65               	Debug_Print_Current_Temperature:
+  66               	.LFB31:
+  67               	.LM8:
+  68               	/* prologue: function */
+  69               	/* frame size = 0 */
+  70               	.LM9:
+  71 0024 0E94 0000 		call ADC_Get_Temperature
+  72 0028 A0E0      		ldi r26,lo8(0)
+  73 002a B0E0      		ldi r27,hi8(0)
+  74 002c BC01      		movw r22,r24
+  75 002e CD01      		movw r24,r26
+  76 0030 0E94 0000 		call UART_Transmit_Number
+  77               	.LBB52:
+  78               	.LBB53:
+  79               	.LM10:
+  80 0034 80E0      		ldi r24,lo8(.LC0)
+  81 0036 90E0      		ldi r25,hi8(.LC0)
+  82 0038 0E94 0000 		call UART_Transmit_Text
+  83               	/* epilogue start */
+  84               	.LBE53:
+  85               	.LBE52:
+  86               	.LM11:
+  87 003c 0895      		ret
+  88               	.LFE31:
+  90               	.global	Debug_Print_Power_Bar_Value
+  92               	Debug_Print_Power_Bar_Value:
+  93               	.LFB30:
+  94               	.LM12:
+  95               	/* prologue: function */
+  96               	/* frame size = 0 */
+  97               	.LM13:
+  98 003e 0E94 0000 		call ADC_Get_Power_Bar
+  99 0042 A0E0      		ldi r26,lo8(0)
+ 100 0044 B0E0      		ldi r27,hi8(0)
+ 101 0046 BC01      		movw r22,r24
+ 102 0048 CD01      		movw r24,r26
+ 103 004a 0E94 0000 		call UART_Transmit_Number
+ 104               	.LBB54:
+ 105               	.LBB55:
+ 106               	.LM14:
+ 107 004e 80E0      		ldi r24,lo8(.LC0)
+ 108 0050 90E0      		ldi r25,hi8(.LC0)
+ 109 0052 0E94 0000 		call UART_Transmit_Text
+ 110               	/* epilogue start */
+ 111               	.LBE55:
+ 112               	.LBE54:
+ 113               	.LM15:
+ 114 0056 0895      		ret
+ 115               	.LFE30:
+ 117               	.global	Debug_Print_Power_Draw
+ 119               	Debug_Print_Power_Draw:
+ 120               	.LFB29:
+ 121               	.LM16:
+ 122               	/* prologue: function */
+ 123               	/* frame size = 0 */
+ 124               	.LM17:
+ 125 0058 0E94 0000 		call ADC_Get_Power_Draw
+ 126 005c A0E0      		ldi r26,lo8(0)
+ 127 005e B0E0      		ldi r27,hi8(0)
+ 128 0060 BC01      		movw r22,r24
+ 129 0062 CD01      		movw r24,r26
+ 130 0064 0E94 0000 		call UART_Transmit_Number
+ 131               	.LBB56:
+ 132               	.LBB57:
+ 133               	.LM18:
+ 134 0068 80E0      		ldi r24,lo8(.LC0)
+ 135 006a 90E0      		ldi r25,hi8(.LC0)
+ 136 006c 0E94 0000 		call UART_Transmit_Text
+ 137               	/* epilogue start */
+ 138               	.LBE57:
+ 139               	.LBE56:
+ 140               	.LM19:
+ 141 0070 0895      		ret
+ 142               	.LFE29:
+ 144               	.global	Debug_Print_Current_Draw
+ 146               	Debug_Print_Current_Draw:
+ 147               	.LFB28:
+ 148               	.LM20:
+ 149               	/* prologue: function */
+ 150               	/* frame size = 0 */
+ 151               	.LM21:
+ 152 0072 0E94 0000 		call ADC_Get_Current
+ 153 0076 A0E0      		ldi r26,lo8(0)
+ 154 0078 B0E0      		ldi r27,hi8(0)
+ 155 007a BC01      		movw r22,r24
+ 156 007c CD01      		movw r24,r26
+ 157 007e 0E94 0000 		call UART_Transmit_Number
+ 158               	.LBB58:
+ 159               	.LBB59:
+ 160               	.LM22:
+ 161 0082 80E0      		ldi r24,lo8(.LC0)
+ 162 0084 90E0      		ldi r25,hi8(.LC0)
+ 163 0086 0E94 0000 		call UART_Transmit_Text
+ 164               	/* epilogue start */
+ 165               	.LBE59:
+ 166               	.LBE58:
+ 167               	.LM23:
+ 168 008a 0895      		ret
+ 169               	.LFE28:
+ 171               	.global	Debug_Print_Vin
+ 173               	Debug_Print_Vin:
+ 174               	.LFB27:
+ 175               	.LM24:
+ 176               	/* prologue: function */
+ 177               	/* frame size = 0 */
+ 178               	.LM25:
+ 179 008c 0E94 0000 		call ADC_Get_Input_Voltage
+ 180 0090 A0E0      		ldi r26,lo8(0)
+ 181 0092 B0E0      		ldi r27,hi8(0)
+ 182 0094 BC01      		movw r22,r24
+ 183 0096 CD01      		movw r24,r26
+ 184 0098 0E94 0000 		call UART_Transmit_Number
+ 185               	.LBB60:
+ 186               	.LBB61:
+ 187               	.LM26:
+ 188 009c 80E0      		ldi r24,lo8(.LC0)
+ 189 009e 90E0      		ldi r25,hi8(.LC0)
+ 190 00a0 0E94 0000 		call UART_Transmit_Text
+ 191               	/* epilogue start */
+ 192               	.LBE61:
+ 193               	.LBE60:
+ 194               	.LM27:
+ 195 00a4 0895      		ret
+ 196               	.LFE27:
+ 198               	.global	Debug_Print_Max_PWM
+ 200               	Debug_Print_Max_PWM:
+ 201               	.LFB26:
+ 202               	.LM28:
+ 203               	/* prologue: function */
+ 204               	/* frame size = 0 */
+ 205               	.LM29:
+ 206 00a6 0E94 0000 		call Iron_Get_Max_PWM
+ 207 00aa A0E0      		ldi r26,lo8(0)
+ 208 00ac B0E0      		ldi r27,hi8(0)
+ 209 00ae BC01      		movw r22,r24
+ 210 00b0 CD01      		movw r24,r26
+ 211 00b2 0E94 0000 		call UART_Transmit_Number
+ 212               	.LBB62:
+ 213               	.LBB63:
+ 214               	.LM30:
+ 215 00b6 80E0      		ldi r24,lo8(.LC0)
+ 216 00b8 90E0      		ldi r25,hi8(.LC0)
+ 217 00ba 0E94 0000 		call UART_Transmit_Text
+ 218               	/* epilogue start */
+ 219               	.LBE63:
+ 220               	.LBE62:
+ 221               	.LM31:
+ 222 00be 0895      		ret
+ 223               	.LFE26:
+ 225               	.global	Debug_Print_PWM
+ 227               	Debug_Print_PWM:
+ 228               	.LFB25:
+ 229               	.LM32:
+ 230               	/* prologue: function */
+ 231               	/* frame size = 0 */
+ 232               	.LM33:
+ 233 00c0 0E94 0000 		call Iron_Get_PWM
+ 234 00c4 A0E0      		ldi r26,lo8(0)
+ 235 00c6 B0E0      		ldi r27,hi8(0)
+ 236 00c8 BC01      		movw r22,r24
+ 237 00ca CD01      		movw r24,r26
+ 238 00cc 0E94 0000 		call UART_Transmit_Number
+ 239               	.LBB64:
+ 240               	.LBB65:
+ 241               	.LM34:
+ 242 00d0 80E0      		ldi r24,lo8(.LC0)
+ 243 00d2 90E0      		ldi r25,hi8(.LC0)
+ 244 00d4 0E94 0000 		call UART_Transmit_Text
+ 245               	/* epilogue start */
+ 246               	.LBE65:
+ 247               	.LBE64:
+ 248               	.LM35:
+ 249 00d8 0895      		ret
+ 250               	.LFE25:
+ 252               	.global	Debug_Print_PID_Output_NonNegative
+ 254               	Debug_Print_PID_Output_NonNegative:
+ 255               	.LFB24:
+ 256               	.LM36:
+ 257               	/* prologue: function */
+ 258               	/* frame size = 0 */
+ 259               	.LM37:
+ 260 00da 0E94 0000 		call PID_Get_Output_NonNegative
+ 261 00de 0E94 0000 		call UART_Transmit_Number
+ 262               	.LBB66:
+ 263               	.LBB67:
+ 264               	.LM38:
+ 265 00e2 80E0      		ldi r24,lo8(.LC0)
+ 266 00e4 90E0      		ldi r25,hi8(.LC0)
+ 267 00e6 0E94 0000 		call UART_Transmit_Text
+ 268               	/* epilogue start */
+ 269               	.LBE67:
+ 270               	.LBE66:
+ 271               	.LM39:
+ 272 00ea 0895      		ret
+ 273               	.LFE24:
+ 275               	.global	Debug_Print_PID_Output
+ 277               	Debug_Print_PID_Output:
+ 278               	.LFB23:
+ 279               	.LM40:
+ 280               	/* prologue: function */
+ 281               	/* frame size = 0 */
+ 282               	.LM41:
+ 283 00ec 0E94 0000 		call PID_Get_Output
+ 284 00f0 0E94 0000 		call UART_Transmit_Number
+ 285               	.LBB68:
+ 286               	.LBB69:
+ 287               	.LM42:
+ 288 00f4 80E0      		ldi r24,lo8(.LC0)
+ 289 00f6 90E0      		ldi r25,hi8(.LC0)
+ 290 00f8 0E94 0000 		call UART_Transmit_Text
+ 291               	/* epilogue start */
+ 292               	.LBE69:
+ 293               	.LBE68:
+ 294               	.LM43:
+ 295 00fc 0895      		ret
+ 296               	.LFE23:
+ 298               	.global	Debug_Print_PID_DError_Product
+ 300               	Debug_Print_PID_DError_Product:
+ 301               	.LFB22:
+ 302               	.LM44:
+ 303               	/* prologue: function */
+ 304               	/* frame size = 0 */
+ 305               	.LM45:
+ 306 00fe 0E94 0000 		call PID_Get_DError_Product
+ 307 0102 0E94 0000 		call UART_Transmit_Number
+ 308               	.LBB70:
+ 309               	.LBB71:
+ 310               	.LM46:
+ 311 0106 80E0      		ldi r24,lo8(.LC0)
+ 312 0108 90E0      		ldi r25,hi8(.LC0)
+ 313 010a 0E94 0000 		call UART_Transmit_Text
+ 314               	/* epilogue start */
+ 315               	.LBE71:
+ 316               	.LBE70:
+ 317               	.LM47:
+ 318 010e 0895      		ret
+ 319               	.LFE22:
+ 321               	.global	Debug_Print_PID_IError_Product
+ 323               	Debug_Print_PID_IError_Product:
+ 324               	.LFB21:
+ 325               	.LM48:
+ 326               	/* prologue: function */
+ 327               	/* frame size = 0 */
+ 328               	.LM49:
+ 329 0110 0E94 0000 		call PID_Get_IError_Product
+ 330 0114 0E94 0000 		call UART_Transmit_Number
+ 331               	.LBB72:
+ 332               	.LBB73:
+ 333               	.LM50:
+ 334 0118 80E0      		ldi r24,lo8(.LC0)
+ 335 011a 90E0      		ldi r25,hi8(.LC0)
+ 336 011c 0E94 0000 		call UART_Transmit_Text
+ 337               	/* epilogue start */
+ 338               	.LBE73:
+ 339               	.LBE72:
+ 340               	.LM51:
+ 341 0120 0895      		ret
+ 342               	.LFE21:
+ 344               	.global	Debug_Print_PID_PError_Product
+ 346               	Debug_Print_PID_PError_Product:
+ 347               	.LFB20:
+ 348               	.LM52:
+ 349               	/* prologue: function */
+ 350               	/* frame size = 0 */
+ 351               	.LM53:
+ 352 0122 0E94 0000 		call PID_Get_PError_Product
+ 353 0126 0E94 0000 		call UART_Transmit_Number
+ 354               	.LBB74:
+ 355               	.LBB75:
+ 356               	.LM54:
+ 357 012a 80E0      		ldi r24,lo8(.LC0)
+ 358 012c 90E0      		ldi r25,hi8(.LC0)
+ 359 012e 0E94 0000 		call UART_Transmit_Text
+ 360               	/* epilogue start */
+ 361               	.LBE75:
+ 362               	.LBE74:
+ 363               	.LM55:
+ 364 0132 0895      		ret
+ 365               	.LFE20:
+ 367               	.global	Debug_Print_PID_Max_IError
+ 369               	Debug_Print_PID_Max_IError:
+ 370               	.LFB19:
+ 371               	.LM56:
+ 372               	/* prologue: function */
+ 373               	/* frame size = 0 */
+ 374               	.LM57:
+ 375 0134 0E94 0000 		call PID_Get_Max_IError
+ 376 0138 0E94 0000 		call UART_Transmit_Number
+ 377               	.LBB76:
+ 378               	.LBB77:
+ 379               	.LM58:
+ 380 013c 80E0      		ldi r24,lo8(.LC0)
+ 381 013e 90E0      		ldi r25,hi8(.LC0)
+ 382 0140 0E94 0000 		call UART_Transmit_Text
+ 383               	/* epilogue start */
+ 384               	.LBE77:
+ 385               	.LBE76:
+ 386               	.LM59:
+ 387 0144 0895      		ret
+ 388               	.LFE19:
+ 390               	.global	Debug_Print_PID_DError
+ 392               	Debug_Print_PID_DError:
+ 393               	.LFB18:
+ 394               	.LM60:
+ 395               	/* prologue: function */
+ 396               	/* frame size = 0 */
+ 397               	.LM61:
+ 398 0146 0E94 0000 		call PID_Get_DError
+ 399 014a 0E94 0000 		call UART_Transmit_Number
+ 400               	.LBB78:
+ 401               	.LBB79:
+ 402               	.LM62:
+ 403 014e 80E0      		ldi r24,lo8(.LC0)
+ 404 0150 90E0      		ldi r25,hi8(.LC0)
+ 405 0152 0E94 0000 		call UART_Transmit_Text
+ 406               	/* epilogue start */
+ 407               	.LBE79:
+ 408               	.LBE78:
+ 409               	.LM63:
+ 410 0156 0895      		ret
+ 411               	.LFE18:
+ 413               	.global	Debug_Print_PID_IError
+ 415               	Debug_Print_PID_IError:
+ 416               	.LFB17:
+ 417               	.LM64:
+ 418               	/* prologue: function */
+ 419               	/* frame size = 0 */
+ 420               	.LM65:
+ 421 0158 0E94 0000 		call PID_Get_IError
+ 422 015c 0E94 0000 		call UART_Transmit_Number
+ 423               	.LBB80:
+ 424               	.LBB81:
+ 425               	.LM66:
+ 426 0160 80E0      		ldi r24,lo8(.LC0)
+ 427 0162 90E0      		ldi r25,hi8(.LC0)
+ 428 0164 0E94 0000 		call UART_Transmit_Text
+ 429               	/* epilogue start */
+ 430               	.LBE81:
+ 431               	.LBE80:
+ 432               	.LM67:
+ 433 0168 0895      		ret
+ 434               	.LFE17:
+ 436               	.global	Debug_Print_PID_PError
+ 438               	Debug_Print_PID_PError:
+ 439               	.LFB16:
+ 440               	.LM68:
+ 441               	/* prologue: function */
+ 442               	/* frame size = 0 */
+ 443               	.LM69:
+ 444 016a 0E94 0000 		call PID_Get_PError
+ 445 016e 0E94 0000 		call UART_Transmit_Number
+ 446               	.LBB82:
+ 447               	.LBB83:
+ 448               	.LM70:
+ 449 0172 80E0      		ldi r24,lo8(.LC0)
+ 450 0174 90E0      		ldi r25,hi8(.LC0)
+ 451 0176 0E94 0000 		call UART_Transmit_Text
+ 452               	/* epilogue start */
+ 453               	.LBE83:
+ 454               	.LBE82:
+ 455               	.LM71:
+ 456 017a 0895      		ret
+ 457               	.LFE16:
+ 459               	.global	Debug_Print_PID_Process_Value
+ 461               	Debug_Print_PID_Process_Value:
+ 462               	.LFB15:
+ 463               	.LM72:
+ 464               	/* prologue: function */
+ 465               	/* frame size = 0 */
+ 466               	.LM73:
+ 467 017c 0E94 0000 		call PID_Get_Process_Value
+ 468 0180 0E94 0000 		call UART_Transmit_Number
+ 469               	.LBB84:
+ 470               	.LBB85:
+ 471               	.LM74:
+ 472 0184 80E0      		ldi r24,lo8(.LC0)
+ 473 0186 90E0      		ldi r25,hi8(.LC0)
+ 474 0188 0E94 0000 		call UART_Transmit_Text
+ 475               	/* epilogue start */
+ 476               	.LBE85:
+ 477               	.LBE84:
+ 478               	.LM75:
+ 479 018c 0895      		ret
+ 480               	.LFE15:
+ 482               	.global	Debug_Print_PID_SetPoint
+ 484               	Debug_Print_PID_SetPoint:
+ 485               	.LFB14:
+ 486               	.LM76:
+ 487               	/* prologue: function */
+ 488               	/* frame size = 0 */
+ 489               	.LM77:
+ 490 018e 0E94 0000 		call PID_Get_Set_Point
+ 491 0192 0E94 0000 		call UART_Transmit_Number
+ 492               	.LBB86:
+ 493               	.LBB87:
+ 494               	.LM78:
+ 495 0196 80E0      		ldi r24,lo8(.LC0)
+ 496 0198 90E0      		ldi r25,hi8(.LC0)
+ 497 019a 0E94 0000 		call UART_Transmit_Text
+ 498               	/* epilogue start */
+ 499               	.LBE87:
+ 500               	.LBE86:
+ 501               	.LM79:
+ 502 019e 0895      		ret
+ 503               	.LFE14:
+ 505               	.global	Debug_Print_PID_Kd
+ 507               	Debug_Print_PID_Kd:
+ 508               	.LFB13:
+ 509               	.LM80:
+ 510               	/* prologue: function */
+ 511               	/* frame size = 0 */
+ 512               	.LM81:
+ 513 01a0 0E94 0000 		call PID_Get_Kd
+ 514 01a4 0E94 0000 		call UART_Transmit_Number
+ 515               	.LBB88:
+ 516               	.LBB89:
+ 517               	.LM82:
+ 518 01a8 80E0      		ldi r24,lo8(.LC0)
+ 519 01aa 90E0      		ldi r25,hi8(.LC0)
+ 520 01ac 0E94 0000 		call UART_Transmit_Text
+ 521               	/* epilogue start */
+ 522               	.LBE89:
+ 523               	.LBE88:
+ 524               	.LM83:
+ 525 01b0 0895      		ret
+ 526               	.LFE13:
+ 528               	.global	Debug_Print_PID_Ki
+ 530               	Debug_Print_PID_Ki:
+ 531               	.LFB12:
+ 532               	.LM84:
+ 533               	/* prologue: function */
+ 534               	/* frame size = 0 */
+ 535               	.LM85:
+ 536 01b2 0E94 0000 		call PID_Get_Ki
+ 537 01b6 0E94 0000 		call UART_Transmit_Number
+ 538               	.LBB90:
+ 539               	.LBB91:
+ 540               	.LM86:
+ 541 01ba 80E0      		ldi r24,lo8(.LC0)
+ 542 01bc 90E0      		ldi r25,hi8(.LC0)
+ 543 01be 0E94 0000 		call UART_Transmit_Text
+ 544               	/* epilogue start */
+ 545               	.LBE91:
+ 546               	.LBE90:
+ 547               	.LM87:
+ 548 01c2 0895      		ret
+ 549               	.LFE12:
+ 551               	.global	Debug_Print_PID_Kp
+ 553               	Debug_Print_PID_Kp:
+ 554               	.LFB11:
+ 555               	.LM88:
+ 556               	/* prologue: function */
+ 557               	/* frame size = 0 */
+ 558               	.LM89:
+ 559 01c4 0E94 0000 		call PID_Get_Kp
+ 560 01c8 0E94 0000 		call UART_Transmit_Number
+ 561               	.LBB92:
+ 562               	.LBB93:
+ 563               	.LM90:
+ 564 01cc 80E0      		ldi r24,lo8(.LC0)
+ 565 01ce 90E0      		ldi r25,hi8(.LC0)
+ 566 01d0 0E94 0000 		call UART_Transmit_Text
+ 567               	/* epilogue start */
+ 568               	.LBE93:
+ 569               	.LBE92:
+ 570               	.LM91:
+ 571 01d4 0895      		ret
+ 572               	.LFE11:
+ 574               	.global	Debug_Print_SubSeconds
+ 576               	Debug_Print_SubSeconds:
+ 577               	.LFB10:
+ 578               	.LM92:
+ 579               	/* prologue: function */
+ 580               	/* frame size = 0 */
+ 581               	.LM93:
+ 582 01d6 0E94 0000 		call Timebase_Timer_Get_SubSeconds
+ 583 01da 0E94 0000 		call UART_Transmit_Number
+ 584               	.LBB94:
+ 585               	.LBB95:
+ 586               	.LM94:
+ 587 01de 80E0      		ldi r24,lo8(.LC0)
+ 588 01e0 90E0      		ldi r25,hi8(.LC0)
+ 589 01e2 0E94 0000 		call UART_Transmit_Text
+ 590               	/* epilogue start */
+ 591               	.LBE95:
+ 592               	.LBE94:
+ 593               	.LM95:
+ 594 01e6 0895      		ret
+ 595               	.LFE10:
+ 597               	.global	Debug_Print_UpTime
+ 599               	Debug_Print_UpTime:
+ 600               	.LFB9:
+ 601               	.LM96:
+ 602               	/* prologue: function */
+ 603               	/* frame size = 0 */
+ 604               	.LM97:
+ 605 01e8 0E94 0000 		call Timebase_Timer_Get_Seconds
+ 606 01ec 0E94 0000 		call UART_Transmit_Number
+ 607               	.LBB96:
+ 608               	.LBB97:
+ 609               	.LM98:
+ 610 01f0 80E0      		ldi r24,lo8(.LC0)
+ 611 01f2 90E0      		ldi r25,hi8(.LC0)
+ 612 01f4 0E94 0000 		call UART_Transmit_Text
+ 613               	/* epilogue start */
+ 614               	.LBE97:
+ 615               	.LBE96:
+ 616               	.LM99:
+ 617 01f8 0895      		ret
+ 618               	.LFE9:
+ 620               	.global	Debug_Init
+ 622               	Debug_Init:
+ 623               	.LFB7:
+ 624               	.LM100:
+ 625               	/* prologue: function */
+ 626               	/* frame size = 0 */
+ 627               	.LM101:
+ 628 01fa 60E0      		ldi r22,lo8(57600)
+ 629 01fc 71EE      		ldi r23,hi8(57600)
+ 630 01fe 80E0      		ldi r24,hlo8(57600)
+ 631 0200 90E0      		ldi r25,hhi8(57600)
+ 632 0202 0E94 0000 		call UART_Init
+ 633               	/* epilogue start */
+ 634               	.LM102:
+ 635 0206 0895      		ret
+ 636               	.LFE7:
+ 862               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 debug.c
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:2      *ABS*:0000003f __SREG__
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:3      *ABS*:0000003e __SP_H__
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:4      *ABS*:0000003d __SP_L__
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:5      *ABS*:00000034 __CCP__
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:22     .text:00000000 Debug_Print_Seperation
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:38     .text:0000000a Debug_Print_Display_Temperature
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:65     .text:00000024 Debug_Print_Current_Temperature
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:92     .text:0000003e Debug_Print_Power_Bar_Value
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:119    .text:00000058 Debug_Print_Power_Draw
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:146    .text:00000072 Debug_Print_Current_Draw
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:173    .text:0000008c Debug_Print_Vin
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:200    .text:000000a6 Debug_Print_Max_PWM
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:227    .text:000000c0 Debug_Print_PWM
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:254    .text:000000da Debug_Print_PID_Output_NonNegative
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:277    .text:000000ec Debug_Print_PID_Output
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:300    .text:000000fe Debug_Print_PID_DError_Product
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:323    .text:00000110 Debug_Print_PID_IError_Product
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:346    .text:00000122 Debug_Print_PID_PError_Product
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:369    .text:00000134 Debug_Print_PID_Max_IError
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:392    .text:00000146 Debug_Print_PID_DError
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:415    .text:00000158 Debug_Print_PID_IError
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:438    .text:0000016a Debug_Print_PID_PError
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:461    .text:0000017c Debug_Print_PID_Process_Value
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:484    .text:0000018e Debug_Print_PID_SetPoint
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:507    .text:000001a0 Debug_Print_PID_Kd
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:530    .text:000001b2 Debug_Print_PID_Ki
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:553    .text:000001c4 Debug_Print_PID_Kp
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:576    .text:000001d6 Debug_Print_SubSeconds
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:599    .text:000001e8 Debug_Print_UpTime
+C:\Users\WALTON\AppData\Local\Temp/ccVoP9qv.s:622    .text:000001fa Debug_Init
+
+UNDEFINED SYMBOLS
+UART_Transmit_Text
+ADC_Get_Display_Temperature
+UART_Transmit_Number
+ADC_Get_Temperature
+ADC_Get_Power_Bar
+ADC_Get_Power_Draw
+ADC_Get_Current
+ADC_Get_Input_Voltage
+Iron_Get_Max_PWM
+Iron_Get_PWM
+PID_Get_Output_NonNegative
+PID_Get_Output
+PID_Get_DError_Product
+PID_Get_IError_Product
+PID_Get_PError_Product
+PID_Get_Max_IError
+PID_Get_DError
+PID_Get_IError
+PID_Get_PError
+PID_Get_Process_Value
+PID_Get_Set_Point
+PID_Get_Kd
+PID_Get_Ki
+PID_Get_Kp
+Timebase_Timer_Get_SubSeconds
+Timebase_Timer_Get_Seconds
+UART_Init
+__do_copy_data
